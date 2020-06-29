@@ -1,12 +1,10 @@
 package com.example.parcial3capas.controller;
 
-import com.example.parcial3capas.domain.Departamento;
-import com.example.parcial3capas.domain.Municipio;
-import com.example.parcial3capas.domain.Rol;
-import com.example.parcial3capas.domain.Usuario;
+import com.example.parcial3capas.domain.*;
 import com.example.parcial3capas.repositories.DepartamentoRepo;
 import com.example.parcial3capas.repositories.MunicipioRepo;
 import com.example.parcial3capas.repositories.RolRepo;
+import com.example.parcial3capas.services.CentroEscolarService;
 import com.example.parcial3capas.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,6 +37,9 @@ public class MainController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    CentroEscolarService centroEscolarService;
 
     //Pagina principal LOGIN
     @RequestMapping("/")
@@ -216,5 +217,55 @@ public class MainController {
         return mav;
     }
     //*******************************Listado EDITADO de Usuarios*******************************
+
+    //*******************************Listado de Centros Escolares*******************************
+    @RequestMapping("/listadoC")
+    public ModelAndView listadoC(){
+        ModelAndView mav = new ModelAndView();
+        List<Municipio> municipios = null;
+        List<CentroEscolar> centroEscolares = centroEscolarService.findAll();
+
+        try {
+            municipios = municipioRepo.municipios();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        mav.addObject("municipios", municipios);
+        mav.addObject("centroEscolares", centroEscolares);
+        mav.setViewName("listaCentrosE");
+
+        return mav;
+    }
+
+    //*******************************Listado EDITADO de Centros Escolares*******************************
+    @RequestMapping("/editCentro")
+    public ModelAndView editC(@RequestParam(value = "codigoUF") String codigoU, @RequestParam(value = "nombreF") String nombre, @RequestParam(value = "apellidoF") String apellido,
+                              @RequestParam(value = "fechaF") String fechaNacimiento, @RequestParam(value = "direccionF") String direccionResidencia,
+                              @RequestParam(value = "estadoF") String estado, @RequestParam(value = "rolF") String rol, @RequestParam(value = "departamentoF") String departamento){
+        ModelAndView mav = new ModelAndView();
+
+        Integer codigo = Integer.parseInt(codigoU);
+        Integer roldd = Integer.parseInt(rol);
+
+        Usuario usuarioAct = usuarioService.findByID(codigo);
+
+        usuarioAct.setNombre(nombre);
+        usuarioAct.setApellido(apellido);
+        usuarioAct.setFechaNacimiento(fechaNacimiento);
+        usuarioAct.setDireccionResidencia(direccionResidencia);
+        usuarioAct.setEstado(estado);
+        usuarioAct.setCodigoRol(roldd);
+        usuarioAct.setCodigoDepartamento(departamentoRepo.findByDepartamento(departamento).getCodigoDepartamento());
+
+
+        Usuario usuarioE = usuarioAct;
+        usuarioService.insert(usuarioE);
+
+        mav.setViewName("exito");
+
+        return mav;
+    }
+    //*******************************Listado EDITADO de Centros Escolares*******************************
 }
 

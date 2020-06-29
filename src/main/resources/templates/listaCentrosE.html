@@ -37,7 +37,7 @@
         <div class="col-md-12 row justify-content-between Barra mr-0">
             <div class="col-md-6">
                 <form class="col-md-" th:action="@{/registro}">
-                    <input class="w-auto btn btn-success" type="submit" value="Agregar Usuario">
+                    <input class="w-auto btn btn-success" type="submit" value="Agregar Centro Escolar">
                 </form>
             </div>
             <div class="col-md- row justify-content-end p-0">
@@ -49,7 +49,7 @@
         <div class="col-md-12 row Tablas">
             <div class="col-md-12 row justify-content-md-center">
                 <div class="row justify-content-center">
-                    <h1 class="col-md-12 ">Listado de Usuarios</h1>
+                    <h1 class="col-md-12 ">Listado de Centros Escolares</h1>
                 </div>
             </div>
             <div class="col-md-12 row m-0">
@@ -58,16 +58,11 @@
                     <th class="col-">Accion</th>
                     <th class="col-">CDU</th>
                     <th class="col-">Nombre</th>
-                    <th class="col-">Apellido</th>
-                    <th class="col-">Fecha de Nacimiento</th>
-                    <th class="col-">Edad</th>
-                    <th class="col-">Direccion de Residencia</th>
-                    <th class="col-">Estado</th>
-                    <th class="col-">Usuario</th>
-                    <th class="col-">Rol</th>
-                    <th class="col-">Departamento</th>
+                    <th class="col-">Direccion</th>
+                    <th class="col-">Telefono</th>
+                    <th class="col-">Municipio</th>
                     </thead>
-                    <th:block th:each="usuario, row:${usuarios}">
+                    <th:block th:each="centrosEscolares, row:${centroEscolares}">
                         <tr>
                             <th>
                                 <input class="btn fa btn-info" id="editar" type="submit" value="&#xf4ff;"
@@ -75,63 +70,38 @@
                                 <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
                                 <form class="p-0 m-0" method="post" th:action="@{/editUsuario}">
-                                    <input type="text" style="display: none" id="formC" th:name="codigoUF">
-                                    <input type="text" style="display: none" id="formN" th:name="nombreF">
-                                    <input type="text" style="display: none" id="formA" th:name="apellidoF">
-                                    <input type="text" style="display: none" id="formF" th:name="fechaF">
-                                    <input type="text" style="display: none" id="formD" th:name="direccionF">
-                                    <input type="text" style="display: none" id="formE" th:name="estadoF">
-                                    <input type="text" style="display: none" id="formR" th:name="rolF">
-                                    <input type="text" style="display: none" id="formDe" th:name="departamentoF">
+                                    <input type="text" style="display: none" id="formC" th:name="codigoCF">
+                                    <input type="text" style="display: none" id="formN" th:name="nombreCF">
+                                    <input type="text" style="display: none" id="formD" th:name="DireccionCF">
+                                    <input type="text" style="display: none" id="formT" th:name="telefonoCF">
+                                    <input type="text" style="display: none" id="formM" th:name="municipioCF">
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"
                                            type="submit" value="&#xf058;">
                                 </form>
                             </th>
                             <th>
-                                <p id="codigoUP" th:text="${usuario.codigoUsuario}"
+                                <p id="codigoCP" th:text="${centrosEscolares.codigoCentro}"
                                    style="display: block"></p>
                             </th>
                             <th>
-                                <p id="nombreP" th:text="${usuario.nombre}" style="display: block"></p>
+                                <p id="nombreCP" th:text="${centrosEscolares.nombre}" style="display: block"></p>
                                 <input id="nombre" type="text" placeholder="Nombre" style="display: none">
                             </th>
                             <th>
-                                <p id="apellidoP" th:text="${usuario.apellido}" style="display: block"></p>
+                                <p id="apellidoCP" th:text="${centrosEscolares.direccion}" style="display: block"></p>
                                 <input id="apellido" type="text" placeholder="Apellido" style="display: none">
                             </th>
                             <th>
-                                <p id="fechaP" th:text="${usuario.fechaNacimiento}" style="display: block"></p>
-                                <input id="fecha" type="date" style="display: none">
+                                <p id="fechaCP" th:text="${centrosEscolares.telefono}" style="display: block"></p>
+                                <input id="fecha" type="text" style="display: none" placeholder="1234-5678">
                             </th>
                             <th>
-                                <p id="edadP" th:text="${usuario.edad}" style="display: block"></p>
-                            </th>
-                            <th>
-                                <p id="direccionP" th:text="${usuario.direccionResidencia}"
-                                   style="display: block"></p>
-                                <input id="direccion" type="text" placeholder="Direccion" style="display: none">
-                            </th>
-                            <th>
-                                <select id="estadoP" style="display: none">
-                                    <option>Activo</option>
-                                    <option>Inactivo</option>
+                                <select id="municipioCP" style="display: none">
+                                    <option th:each="municipios, row: ${municipios}"
+                                            th:value="${municipios.codigoMunicipio}"
+                                            th:text="${municipios.municipio}"></option>
                                 </select>
-                                <p th:text="${usuario.estado}" style="display: block"></p>
-                            </th>
-                            <th>
-                                <p id="usuarioP" th:text="${usuario.usuario}" style="display: block"></p>
-                            </th>
-                            <th>
-                                <select id="rolP" style="display: none">
-                                    <option th:each="rol, row: ${roles}"
-                                            th:value="${rol.codigoRol}"
-                                            th:text="${rol.rol}"></option>
-                                </select>
-                                <p th:text="${usuario.rol.rol}" style="display: block"></p>
-                            </th>
-                            <th>
-                                <p id="departamentoP" name="departamento"
-                                   th:text="${usuario.departamento.departamento}" style="display: block"></p>
+                                <p th:text="${centrosEscolares.municipio.municipio}" style="display: block"></p>
                             </th>
                         </tr>
                     </th:block>
@@ -177,12 +147,12 @@
 
         //Capturar los datos del usuario en los parrafos INICIO
         const nombre = parrafos[1].textContent;
-        const apellido = parrafos[2].textContent;
-        const direccion = parrafos[5].textContent;
+        const direccion = parrafos[2].textContent;
+        const telefono = parrafos[3].textContent;
         //Capturar los datos del usuario en los parrafos FIN
 
         for (i = 0; i < parrafos.length; i++) {
-            if (parrafos[i].id === "codigoUP" || parrafos[i].id === "edadP" || parrafos[i].id === "usuarioP" || parrafos[i].id === "departamentoP") {
+            if (parrafos[i].id === "codigoCP") {
                 parrafos[i].style.display = "block";
             } else {
                 parrafos[i].style.display = "none";
@@ -196,17 +166,17 @@
 
         var inputs = celda.getElementsByTagName('input');
         for (i = 0; i < inputs.length; i++) {
-            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formA" || inputs[i].id === "formF" || inputs[i].id === "formD" || inputs[i].id === "formE" || inputs[i].id === "formR" || inputs[i].id === "formDe") {
+            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formD" || inputs[i].id === "formT" || inputs[i].id === "formM") {
                 inputs[i].style.display = "none";
             } else {
-                if (i === 12) {
+                if (i === 8) {
                     inputs[i].placeholder = nombre;
                 }
-                if (i === 13) {
-                    inputs[i].placeholder = apellido;
-                }
-                if (i === 15) {
+                if (i === 9) {
                     inputs[i].placeholder = direccion;
+                }
+                if (i === 10) {
+                    inputs[i].placeholder = telefono;
                 }
                 inputs[i].style.display = "block";
                 inputs[i].style.minWidth = "100%! Important";
@@ -227,49 +197,33 @@
 
         //Capturar los datos del usuario en los parrafos INICIO
         const nombre = parrafos[1].textContent;
-        const apellido = parrafos[2].textContent;
-        const direccion = parrafos[3].textContent;
+        const direccion = parrafos[2].textContent;
+        const telefono = parrafos[3].textContent;
         //Capturar los datos del usuario en los parrafos FIN
 
         //-----------------------------Parrafos INICIO
 
         let i = 0;
-        let j = 11;
-        let k = 0;
+        let j = 7;
         do {
             do {
                 parrafos[i].style.display = "block"
+                console.log("------------------------------------------")
                 if (i > 0) {
-                    console.log("------------------------------------------")
-                    if (i === 4 || i === 7 || i === 9) {
-                        console.log("Hola soy EDAD")
-                        j--
+                    if(i<4){
+                        console.log("---------------INPUTS--------------")
+                        console.log("---------------" + i + "---------------" + inputs[j].id)
+                        parrafos[i].textContent = inputs[j].value
+                        console.log(parrafos[i].textContent)
+                        console.log("!!!!!!!!!!!!!!!!INPUTS!!!!!!!!!!!!!!!!!")
                     } else {
-                        if (i === 6 || i === 8) {
-                            if (i === 6) {
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                parrafos[i].textContent = selects[0].options[selects[0].selectedIndex].textContent
-                                console.log(parrafos[i].textContent)
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                k++
-                            }
-                            if (i === 8) {
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                parrafos[i].textContent = selects[1].options[selects[1].selectedIndex].textContent
-                                console.log(parrafos[i].textContent)
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                k++
-                            }
-                        } else {
-                            console.log("---------------INPUTS--------------")
-                            console.log("---------------" + i + "---------------")
-                            parrafos[i].textContent = inputs[j].value
-                            console.log(parrafos[i].textContent)
-                            console.log("!!!!!!!!!!!!!!!!INPUTS!!!!!!!!!!!!!!!!!")
-                        }
+                        console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                        parrafos[i].textContent = selects[0].options[selects[0].selectedIndex].textContent
+                        console.log(parrafos[i].textContent)
+                        console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
                     }
-                    console.log("---------------------------------------")
                 }
+                console.log("------------------------------------------")
                 j++
             } while (j <= i)
             i++
@@ -291,23 +245,17 @@
             selects[t].style.display = "none";
         }
 
-        var ID = document.getElementById("codigoUP").textContent = parrafos[0].textContent
-        var nombreP = document.getElementById("nombreP").textContent = inputs[12].value
-        var apellidoP =document.getElementById("apellidoP").textContent = inputs[13].value
-        var fechaP = document.getElementById("fechaP").textContent = inputs[14].value
-        var direccionP =document.getElementById("direccionP").textContent = inputs[15].value
-        var estadoP = document.getElementById("estadoP").textContent = selects[0].value
-        var rolP = document.getElementById("rolP").textContent = selects[1].value
-        var departamentoP = document.getElementById("departamentoP").textContent = parrafos[9].textContent
+        var ID = document.getElementById("codigoCP").textContent = parrafos[0].textContent
+        var nombreCP = document.getElementById("nombreCP").textContent = inputs[8].value
+        var direccionCP =document.getElementById("direccionCP").textContent = inputs[9].value // AQUI SALTA ERROR
+        var telefonoCP = document.getElementById("telefonoCP").textContent = inputs[10].value
+        var municipioCP = document.getElementById("municipioCP").textContent = selects[0].value
 
         document.getElementById("formC").value = ID
-        document.getElementById("formN").value = nombreP
-        document.getElementById("formA").value = apellidoP
-        document.getElementById("formF").value = fechaP
-        document.getElementById("formD").value = direccionP
-        document.getElementById("formE").value = estadoP
-        document.getElementById("formR").value = rolP
-        document.getElementById("formDe").value = departamentoP
+        document.getElementById("formN").value = nombreCP
+        document.getElementById("formD").value = direccionCP
+        document.getElementById("formT").value = telefonoCP
+        document.getElementById("formM").value = municipioCP
 
         /*console.log("aqui " + document.getElementById("codigoUP").textContent)
 
