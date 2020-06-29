@@ -199,13 +199,13 @@
             if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formA" || inputs[i].id === "formF" || inputs[i].id === "formD" || inputs[i].id === "formE" || inputs[i].id === "formR" || inputs[i].id === "formDe") {
                 inputs[i].style.display = "none";
             } else {
-                if (i === 12) {
+                if (i === 11) {
                     inputs[i].placeholder = nombre;
                 }
-                if (i === 13) {
+                if (i === 12) {
                     inputs[i].placeholder = apellido;
                 }
-                if (i === 15) {
+                if (i === 14) {
                     inputs[i].placeholder = direccion;
                 }
                 inputs[i].style.display = "block";
@@ -234,7 +234,7 @@
         //-----------------------------Parrafos INICIO
 
         let i = 0;
-        let j = 11;
+        let j = 10;
         let k = 0;
         do {
             do {
@@ -292,10 +292,10 @@
         }
 
         var ID = document.getElementById("codigoUP").textContent = parrafos[0].textContent
-        var nombreP = document.getElementById("nombreP").textContent = inputs[12].value
-        var apellidoP =document.getElementById("apellidoP").textContent = inputs[13].value
-        var fechaP = document.getElementById("fechaP").textContent = inputs[14].value
-        var direccionP =document.getElementById("direccionP").textContent = inputs[15].value
+        var nombreP = document.getElementById("nombreP").textContent = inputs[11].value
+        var apellidoP =document.getElementById("apellidoP").textContent = inputs[12].value
+        var fechaP = document.getElementById("fechaP").textContent = inputs[13].value
+        var direccionP =document.getElementById("direccionP").textContent = inputs[14].value
         var estadoP = document.getElementById("estadoP").textContent = selects[0].value
         var rolP = document.getElementById("rolP").textContent = selects[1].value
         var departamentoP = document.getElementById("departamentoP").textContent = parrafos[9].textContent
