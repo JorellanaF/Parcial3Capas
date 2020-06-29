@@ -42,7 +42,7 @@ public class MainController {
 
     //Pagina principal LOGIN
     @RequestMapping("/")
-    private ModelAndView home(){
+    public ModelAndView home(){
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("login");
@@ -52,7 +52,7 @@ public class MainController {
 
     //Pagina de REGISTRO
     @RequestMapping("/registro")
-    private ModelAndView registro(){
+    public ModelAndView registro(){
         ModelAndView mav = new ModelAndView();
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
@@ -76,7 +76,7 @@ public class MainController {
     }
 
     @RequestMapping("/admin")
-    private ModelAndView admin(){
+    public ModelAndView admin(){
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("admin");
@@ -85,7 +85,7 @@ public class MainController {
     }
 
     @RequestMapping("/coordinador")
-    private ModelAndView coordinador(){
+    public ModelAndView coordinador(){
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("coordinador");
@@ -94,7 +94,7 @@ public class MainController {
     }
 
     @RequestMapping("/exito")
-    private ModelAndView exito(){
+    public ModelAndView exito(){
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("exito");
@@ -105,11 +105,13 @@ public class MainController {
 
     //Validando el formularo de Registro
     @RequestMapping("/validarR")
-    private ModelAndView validarR(@Valid @ModelAttribute Usuario usuario, BindingResult result){
+    public ModelAndView validarR(@Valid @ModelAttribute Usuario usuario, BindingResult result){
         ModelAndView mav = new ModelAndView();
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
         List<Rol> roles = null;
+
+        System.out.println("YEEEEEEI");
 
         try {
             departamentos = departamentoRepo.findAll();
@@ -130,7 +132,7 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            mav.setViewName("admin");
+            mav.setViewName("login");
         }
 
         return mav;
@@ -138,21 +140,25 @@ public class MainController {
 
     //Validando el formulario de LOGIN
     @RequestMapping("/validDash")
-    private ModelAndView validarDash(@RequestParam(value = "usuario") String user, @RequestParam(value = "password") String pass){
+    public ModelAndView validarDash(@RequestParam(value = "usuario") String user, @RequestParam(value = "password") String pass){
         ModelAndView mav = new ModelAndView();
 
         if(user!= null && pass!= null){
             Usuario usuario = usuarioService.findByUsuarioAndContraseña(user, pass);
             if(usuario != null){
                 if(usuario.getRol().getRol().equals("Administrador")){
+                    System.out.println("El Usuario es Admin");
                     mav.setViewName("admin");
                 } else{
+                    System.out.println("El Usuario es Admin");
                     mav.setViewName("coordinador");
                 }
             } else {
+                System.out.println("No existe el Usuario");
                 mav.setViewName("login");
             }
         } else {
+            System.out.println("Entro en nulos");
             mav.setViewName("login");
         }
 
@@ -161,7 +167,7 @@ public class MainController {
 
     //*******************************Listado de Usuarios*******************************
     @RequestMapping("/listadoU")
-    private ModelAndView listadoU(){
+    public ModelAndView listadoU(){
         ModelAndView mav = new ModelAndView();
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
@@ -187,7 +193,7 @@ public class MainController {
 
     //*******************************Listado EDITADO de Usuarios*******************************
     @RequestMapping("/editUsuario")
-    private ModelAndView editU(@RequestParam(value = "codigoUF") String codigoU, @RequestParam(value = "nombreF") String nombre, @RequestParam(value = "apellidoF") String apellido,
+    public ModelAndView editU(@RequestParam(value = "codigoUF") String codigoU, @RequestParam(value = "nombreF") String nombre, @RequestParam(value = "apellidoF") String apellido,
                                @RequestParam(value = "fechaF") String fechaNacimiento, @RequestParam(value = "direccionF") String direccionResidencia,
                                @RequestParam(value = "estadoF") String estado, @RequestParam(value = "rolF") String rol, @RequestParam(value = "departamentoF") String departamento){
         ModelAndView mav = new ModelAndView();
