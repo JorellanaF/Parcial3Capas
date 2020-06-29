@@ -1,0 +1,34 @@
+input{
+    width: 5em;
+    font-family: FontAwesome;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.Contenedor {
+    height: inherit;
+}
+
+.Menu {
+    height: inherit;
+}
+
+.Vistas {
+    background: #eaeaea;
+    height: inherit;
+}
+
+.logo {
+    background: #f6f6f6;
+    height: auto;
+}
+
+.Barra{
+    background: #e5e5e5;
+    padding: 0.2em;
+}

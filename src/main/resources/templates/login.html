@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesion</title>
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row form">
+        <div class="col-8 divimg"></div>
+        <div class="col-4 p-5 align-self-center">
+            <div class="row col-12 altura align-items-center">
+                <form class="col-12" method="post" th:action="@{/validDash}">
+                    <h1 class="col-12 m-4 text-left">Iniciar Sesion</h1>
+                    <div class="form-group row">
+                        <label class="col-3">Usuario</label>
+                        <input class="col-9" type="text" placeholder="Usuario" name="usuario" th:name="usuario" required>
+                        <span class="col-12 text-center errors" style="color: #FF0000"></span>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-3">Contraseña</label>
+                        <input class="col-9" type="password" placeholder="Contraseña" th:name="password" required>
+                        <span class="col-12 text-center errors" style="color: #FF0000"></span>
+                    </div>
+                    <div class="row justify-content-center">
+                        <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Iniciar Sesion">
+                    </div>
+                </form>
+                <div class="row col-12 m-0 p-0 justify-content-center">
+                    <form class="col-12 row justify-content-center" method="post" th:action="@{/registro}">
+                        <input class="col-4 btn btn-outline-light btnsign" type="submit" value="Registrarse">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="table"></div>
+</body>
+</html>

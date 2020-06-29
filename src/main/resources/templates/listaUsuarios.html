@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Administrador</title>
+    <link rel="stylesheet" type="text/css" href="css/listaUsuarios.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/7f66318f6f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="row Contenedor">
+    <div class="col-md-2 Menu pr-0">
+        <div class="col-md-12 logo row m-0">
+            <div class="col-md-12 m-1 row">
+                <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
+                <h4 class="col-md-10">Dash Admin</h4>
+            </div>
+        </div>
+        <div class="col-md-12 Opciones row m-0">
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-school col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/exito}">Centros Escolares</a>
+            </div>
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-book col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/exito}">Materias</a>
+            </div>
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-users col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
+            </div>
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-user-plus col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/exito}">Agregar usuario</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 Vistas pr-0">
+        <div class="col-md-12 row Barra mr-0">
+            <div class="col-md-10">
+                <form class="row">
+                    <select class="col-md-4">
+                        <option value="0">Seleccione criterio</option>
+                        <option value="1">Nombres [Nombres]</option>
+                        <option value="2">Apellidos [Apellidos]</option>
+                        <option value="3">Nombres y Apellidos [Nombres, Apellidos]</option>
+                    </select>
+                    <input class="col-md-7" type="text">
+                    <input class="btn btn-primary col-md-1 fa" type="submit" value="&#xf002; Buscar">
+                </form>
+            </div>
+            <div class="col-md-2 row justify-content-end p-0">
+                <form class="col- justify-content-end">
+                    <input class="btn btn-danger" type="submit" value="Logout">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 row Tablas">
+            <div class="col-md-12 row justify-content-md-center">
+                <div class="row justify-content-center">
+                    <h1 class="col-md-12 ">Listado de Usuarios</h1>
+                </div>
+            </div>
+            <div class="col-md-12 row m-0">
+                <table class="col-md-12 listado" id="listado">
+                    <thead class="cabecera">
+                    <th class="col-">Accion</th>
+                    <th class="col-">CDU</th>
+                    <th class="col-">Nombre</th>
+                    <th class="col-">Apellido</th>
+                    <th class="col-">Fecha de Nacimiento</th>
+                    <th class="col-">Edad</th>
+                    <th class="col-">Direccion de Residencia</th>
+                    <th class="col-">Estado</th>
+                    <th class="col-">Usuario</th>
+                    <th class="col-">Rol</th>
+                    <th class="col-">Departamento</th>
+                    </thead>
+                    <th:block th:each="usuario, row:${usuarios}">
+                        <tr>
+                            <th>
+                                <input class="btn fa btn-info" id="editar" type="submit" value="&#xf4ff;"
+                                       onclick="cargar_departamentos(this)" onreset="anular()">
+                                <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
+                                       value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
+                                <form class="p-0 m-0" method="post" th:action="@{/editUsuario}">
+                                    <input type="text" style="display: none" id="formC" th:name="codigoUF">
+                                    <input type="text" style="display: none" id="formN" th:name="nombreF">
+                                    <input type="text" style="display: none" id="formA" th:name="apellidoF">
+                                    <input type="text" style="display: none" id="formF" th:name="fechaF">
+                                    <input type="text" style="display: none" id="formD" th:name="direccionF">
+                                    <input type="text" style="display: none" id="formE" th:name="estadoF">
+                                    <input type="text" style="display: none" id="formR" th:name="rolF">
+                                    <input type="text" style="display: none" id="formDe" th:name="departamentoF">
+                                    <input class="btn fa btn-success" id="confirmar" style="display: none"
+                                           type="submit" value="&#xf058;">
+                                </form>
+                            </th>
+                            <th>
+                                <p id="codigoUP" th:text="${usuario.codigoUsuario}"
+                                   style="display: block"></p>
+                            </th>
+                            <th>
+                                <p id="nombreP" th:text="${usuario.nombre}" style="display: block"></p>
+                                <input id="nombre" type="text" placeholder="Nombre" style="display: none">
+                            </th>
+                            <th>
+                                <p id="apellidoP" th:text="${usuario.apellido}" style="display: block"></p>
+                                <input id="apellido" type="text" placeholder="Apellido" style="display: none">
+                            </th>
+                            <th>
+                                <p id="fechaP" th:text="${usuario.fechaNacimiento}" style="display: block"></p>
+                                <input id="fecha" type="date" style="display: none">
+                            </th>
+                            <th>
+                                <p id="edadP" th:text="${usuario.edad}" style="display: block"></p>
+                            </th>
+                            <th>
+                                <p id="direccionP" th:text="${usuario.direccionResidencia}"
+                                   style="display: block"></p>
+                                <input id="direccion" type="text" placeholder="Direccion" style="display: none">
+                            </th>
+                            <th>
+                                <select id="estadoP" style="display: none">
+                                    <option>Activo</option>
+                                    <option>Inactivo</option>
+                                </select>
+                                <p th:text="${usuario.estado}" style="display: block"></p>
+                            </th>
+                            <th>
+                                <p id="usuarioP" th:text="${usuario.usuario}" style="display: block"></p>
+                            </th>
+                            <th>
+                                <select id="rolP" style="display: none">
+                                    <option th:each="rol, row: ${roles}"
+                                            th:value="${rol.codigoRol}"
+                                            th:text="${rol.rol}"></option>
+                                </select>
+                                <p th:text="${usuario.rol.rol}" style="display: block"></p>
+                            </th>
+                            <th>
+                                <p id="departamentoP" name="departamento"
+                                   th:text="${usuario.departamento.departamento}" style="display: block"></p>
+                            </th>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    var editando = false;
+
+    function capturarEnvio() {
+
+        var btnEditar = document.getElementById('guardar'); //Boton editar
+
+        btnEditar.innerHTML = '<form name="formulario" method="post" th:action="@{/editUsuario}" onreset="anular()">' +
+            '<input type="hidden" value="' + document.getElementById('codigoU').textContent + '">' +
+            '<input type="hidden" value="' + document.getElementById('nombre').textContent + '">' +
+            '<input type="hidden" value="' + document.getElementById('apellido').textContent + '">' +
+            '<input type="hidden" value="' + document.getElementById('fecha').textContent + '">' +
+            '<input type="hidden" value="' + document.getElementById('direccion').textContent + '">' +
+            '<input type="hidden" value="' + document.getElementById('estado').textContent + '">' +
+            '<input type="hidden" value="' + document.getElementById('rol').textContent + '">' +
+            '<input class="btn fa btn-info" id="guardar" type="submit" value="&#xf0c7;">' +
+            '</form>';
+    }
+
+    function anular() {
+
+        window.location.reload();
+
+    }
+
+    //PRESIONA EL BOTON EDITAR
+    function cargar_departamentos(boton) {
+        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+        var celda = usuario.parentNode //Celda seleccionada NODO TD
+
+        var parrafos = celda.getElementsByTagName('p');
+
+        //Capturar los datos del usuario en los parrafos INICIO
+        const nombre = parrafos[1].textContent;
+        const apellido = parrafos[2].textContent;
+        const direccion = parrafos[5].textContent;
+        //Capturar los datos del usuario en los parrafos FIN
+
+        for (i = 0; i < parrafos.length; i++) {
+            if (parrafos[i].id === "codigoUP" || parrafos[i].id === "edadP" || parrafos[i].id === "usuarioP" || parrafos[i].id === "departamentoP") {
+                parrafos[i].style.display = "block";
+            } else {
+                parrafos[i].style.display = "none";
+            }
+        }
+
+        var selects = celda.getElementsByTagName('select');
+        for (i = 0; i < selects.length; i++) {
+            selects[i].style.display = "block";
+        }
+
+        var inputs = celda.getElementsByTagName('input');
+        for (i = 0; i < inputs.length; i++) {
+            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formA" || inputs[i].id === "formF" || inputs[i].id === "formD" || inputs[i].id === "formE" || inputs[i].id === "formR" || inputs[i].id === "formDe") {
+                inputs[i].style.display = "none";
+            } else {
+                if (i === 12) {
+                    inputs[i].placeholder = nombre;
+                }
+                if (i === 13) {
+                    inputs[i].placeholder = apellido;
+                }
+                if (i === 15) {
+                    inputs[i].placeholder = direccion;
+                }
+                inputs[i].style.display = "block";
+                inputs[i].style.minWidth = "100%! Important";
+                inputs[i].style.width = "100%";
+            }
+        }
+    }
+
+    //PRESIONA EL BOTON GUARDAR
+    //Aqui falta ACTUALIZAR LOS PARRAFOS con los nuevos datos de los inputs
+    function guardado(boton) {
+        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+        var celda = usuario.parentNode //Celda seleccionada NODO TD
+
+        var parrafos = celda.getElementsByTagName('p');
+        var selects = celda.getElementsByTagName('select');
+        var inputs = celda.getElementsByTagName('input');
+
+        //Capturar los datos del usuario en los parrafos INICIO
+        const nombre = parrafos[1].textContent;
+        const apellido = parrafos[2].textContent;
+        const direccion = parrafos[3].textContent;
+        //Capturar los datos del usuario en los parrafos FIN
+
+        //-----------------------------Parrafos INICIO
+
+        let i = 0;
+        let j = 11;
+        let k = 0;
+        do {
+            do {
+                parrafos[i].style.display = "block"
+                if (i > 0) {
+                    console.log("------------------------------------------")
+                    if (i === 4 || i === 7 || i === 9) {
+                        console.log("Hola soy EDAD")
+                        j--
+                    } else {
+                        if (i === 6 || i === 8) {
+                            if (i === 6) {
+                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                parrafos[i].textContent = selects[0].options[selects[0].selectedIndex].textContent
+                                console.log(parrafos[i].textContent)
+                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                k++
+                            }
+                            if (i === 8) {
+                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                parrafos[i].textContent = selects[1].options[selects[1].selectedIndex].textContent
+                                console.log(parrafos[i].textContent)
+                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                k++
+                            }
+                        } else {
+                            console.log("---------------INPUTS--------------")
+                            console.log("---------------" + i + "---------------")
+                            parrafos[i].textContent = inputs[j].value
+                            console.log(parrafos[i].textContent)
+                            console.log("!!!!!!!!!!!!!!!!INPUTS!!!!!!!!!!!!!!!!!")
+                        }
+                    }
+                    console.log("---------------------------------------")
+                }
+                j++
+            } while (j <= i)
+            i++
+        } while (i < parrafos.length);
+        //-----------------------------Parrafos FIN
+
+        for (t = 0; t < inputs.length; t++) {
+            //console.log("Numero de Input" + i + " " + inputs[i].value)
+            if (inputs[t].id === "confirmar") {
+                inputs[t].style.display = "block";
+            } else {
+                inputs[t].style.display = "none";
+            }
+
+        }
+
+        for (t = 0; t < selects.length; t++) {
+            //console.log("Numero de Select" + i + " " + selects[i].textContent)
+            selects[t].style.display = "none";
+        }
+
+        var ID = document.getElementById("codigoUP").textContent = parrafos[0].textContent
+        var nombreP = document.getElementById("nombreP").textContent = inputs[12].value
+        var apellidoP =document.getElementById("apellidoP").textContent = inputs[13].value
+        var fechaP = document.getElementById("fechaP").textContent = inputs[14].value
+        var direccionP =document.getElementById("direccionP").textContent = inputs[15].value
+        var estadoP = document.getElementById("estadoP").textContent = selects[0].value
+        var rolP = document.getElementById("rolP").textContent = selects[1].value
+        var departamentoP = document.getElementById("departamentoP").textContent = parrafos[9].textContent
+
+        document.getElementById("formC").value = ID
+        document.getElementById("formN").value = nombreP
+        document.getElementById("formA").value = apellidoP
+        document.getElementById("formF").value = fechaP
+        document.getElementById("formD").value = direccionP
+        document.getElementById("formE").value = estadoP
+        document.getElementById("formR").value = rolP
+        document.getElementById("formDe").value = departamentoP
+
+        /*console.log("aqui " + document.getElementById("codigoUP").textContent)
+
+        var ID = document.getElementById("codigoUP").textContent = parrafos[0].textContent
+
+        var nombreP = document.getElementById("nombreP").textContent = inputs[12].value
+        var apellidoP =document.getElementById("apellidoP").textContent = inputs[13].value
+        var fechaP = document.getElementById("fechaP").textContent = inputs[14].value
+        var direccionP =document.getElementById("direccionP").textContent = inputs[15].value
+        var estadoP = document.getElementById("estadoP").textContent = selects[0].value
+        var rolP = document.getElementById("rolP").textContent = selects[1].value
+        var departamentoP = document.getElementById("departamentoP").textContent = parrafos[9].textContent
+
+        document.getElementById("formC").value = ID
+        document.getElementById("formN").value = nombreP
+        document.getElementById("formA").value = apellidoP
+        document.getElementById("formF").value = fechaP
+        document.getElementById("formD").value = direccionP
+        document.getElementById("formE").value = estadoP
+        document.getElementById("formR").value = rolP
+        document.getElementById("formDe").value = departamentoP
+
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log("ID " + ID)
+        console.log("nombre " + nombreP)
+        console.log("apellido " + apellidoP)
+        console.log("fecha " + fechaP)
+        console.log("direccion " + direccionP)
+        console.log("estado " + estadoP)
+        console.log("rol " + rolP)
+        console.log("departamento " + parrafos[9].textContent)
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")*/
+
+    }
+
+    function Enviar(boton) {
+        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+        var celda = usuario.parentNode //Celda seleccionada NODO TD
+
+        var parrafos = celda.getElementsByTagName('p');
+        var inputs = celda.getElementsByTagName('input');
+        var selects = celda.getElementsByTagName('select');
+
+        var contI = 9
+        var contS = 0
+        for (i = 0; i < parrafos.length; i++) {
+            if (i === 0) {
+                parrafos[i].textContent = parrafos[0].textContent
+                parrafos[i].style.display = "block";
+                console.log(parrafos[i].textContent)
+            } else {
+                console.log("****************" + inputs[i].id + "**************")
+                //parrafos[i].textContent = inputs[1].value
+                console.log("+++++++++" + i + "++++++++++" + inputs[i].textContent)
+                console.log("**************************************")
+            }
+        }
+
+
+    }
+
+</script>

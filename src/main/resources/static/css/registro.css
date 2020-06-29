@@ -1,0 +1,29 @@
+.divimg{
+    background-image: url("/images/login.jpg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.errors{
+    size: 2em;
+}
+
+.btnlog{
+    background-image: linear-gradient(to right, rgba(163,118,242,100), rgba(67,80,233,100));
+    text-decoration-color: white;
+}
+
+.btnsign{
+    background-image: linear-gradient(to right, rgba(67,80,233,100), rgba(163,118,242,100));
+    text-decoration-color: white;
+}
+
+.form{
+    background: #e3e3e3;
+}
+
+.altura{
+    height: 100%;
+}
