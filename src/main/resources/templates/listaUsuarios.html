@@ -15,7 +15,7 @@
         <div class="col-md-12 logo row m-0">
             <div class="col-md-12 m-1 row">
                 <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
-                <h4 class="col-md-10">Dash Admin</h4>
+                <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/admin}">Dash Admin</a></h4>
             </div>
         </div>
         <div class="col-md-12 Opciones row m-0">
@@ -31,29 +31,18 @@
                 <i class="fas fa-users col-md-2"></i>
                 <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
             </div>
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-user-plus col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/exito}">Agregar usuario</a>
-            </div>
         </div>
     </div>
     <div class="col-md-10 Vistas pr-0">
-        <div class="col-md-12 row Barra mr-0">
-            <div class="col-md-10">
-                <form class="row">
-                    <select class="col-md-4">
-                        <option value="0">Seleccione criterio</option>
-                        <option value="1">Nombres [Nombres]</option>
-                        <option value="2">Apellidos [Apellidos]</option>
-                        <option value="3">Nombres y Apellidos [Nombres, Apellidos]</option>
-                    </select>
-                    <input class="col-md-7" type="text">
-                    <input class="btn btn-primary col-md-1 fa" type="submit" value="&#xf002; Buscar">
+        <div class="col-md-12 row justify-content-between Barra mr-0">
+            <div class="col-md-6">
+                <form class="col-md-" th:action="@{/registro}">
+                    <input class="w-auto btn btn-success" type="submit" value="Agregar Usuario">
                 </form>
             </div>
-            <div class="col-md-2 row justify-content-end p-0">
-                <form class="col- justify-content-end">
-                    <input class="btn btn-danger" type="submit" value="Logout">
+            <div class="col-md- row justify-content-end p-0">
+                <form class="col-md-12 justify-content-end" th:action="@{/logout}">
+                    <input class="w-auto btn btn-danger" type="submit" value="Logout">
                 </form>
             </div>
         </div>

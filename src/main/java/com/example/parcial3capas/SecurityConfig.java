@@ -64,9 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/registro", "/registro/", "/validDash/").permitAll()
-                .antMatchers("/admin", "/admin/**").hasRole("Administrador")
-                .antMatchers("/coordinador", "/coordinador/**").hasRole("Coordinador")
+                .antMatchers("/", "/validDash/").permitAll()
+                .antMatchers("/validDash/admin", "/validDash/admin/**").hasRole("Administrador")
+                .antMatchers("/validDash/coordinador", "/validDash/coordinador/**").hasRole("Coordinador")
                 .antMatchers("/css/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

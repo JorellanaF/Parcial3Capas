@@ -55,9 +55,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 
         Usuario usuario = usuarioRepo.findByUsuario(username);
 
-        System.out.println("Impl -> " + password);
-        System.out.println("Impl -> " + usuario.getContraseña());
-
         if(bCryptPasswordEncoder.matches(password, usuario.getContraseña())){
             return usuario;
         } else {

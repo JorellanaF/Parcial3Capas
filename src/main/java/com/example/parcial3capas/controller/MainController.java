@@ -147,18 +147,14 @@ public class MainController {
             Usuario usuario = usuarioService.findByUsuarioAndContraseña(user, pass);
             if(usuario != null){
                 if(usuario.getRol().getRol().equals("Administrador")){
-                    System.out.println("El Usuario es Admin");
                     mav.setViewName("admin");
                 } else{
-                    System.out.println("El Usuario es Admin");
                     mav.setViewName("coordinador");
                 }
             } else {
-                System.out.println("No existe el Usuario");
                 mav.setViewName("login");
             }
         } else {
-            System.out.println("Entro en nulos");
             mav.setViewName("login");
         }
 
