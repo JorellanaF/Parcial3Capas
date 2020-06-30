@@ -31,7 +31,7 @@ public class CentroEscolar {
     private String direccion;
 
     @NotEmpty(message = "El campo no debe estar vacio")
-    @Size(message = "El campo no debe tener mas de 10 caracteres", max = 10)
+    @Size(message = "El campo no debe tener mas de 12 caracteres", max = 12)
     @Column(name = "s_telefono")
     private String telefono;
 

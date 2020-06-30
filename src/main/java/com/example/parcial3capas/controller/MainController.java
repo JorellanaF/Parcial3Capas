@@ -267,5 +267,60 @@ public class MainController {
         return mav;
     }
     //*******************************Listado EDITADO de Centros Escolares*******************************
+
+    //*******************************Registrar Centro Escolar*******************************
+    @RequestMapping("/agregarC")
+    public ModelAndView agregarC(){
+        ModelAndView mav = new ModelAndView();
+
+        List<Departamento> deparmento = null;
+        List<Municipio> municipio = null;
+
+        try{
+            deparmento = departamentoRepo.findAll();
+            municipio = municipioRepo.findAll();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        mav.addObject("departamentos", deparmento);
+        mav.addObject("municipios", municipio);
+        mav.addObject("centroEscolar", new CentroEscolar());
+        mav.setViewName("agregarCentro");
+
+        return mav;
+    }
+    //*******************************Registrar Centro Escolar*******************************
+
+    //*******************************Validar registrar Centro Escolar*******************************
+    @RequestMapping("/validarC")
+    public ModelAndView validarC(@Valid @ModelAttribute CentroEscolar centroEscolar, BindingResult result){
+        ModelAndView mav = new ModelAndView();
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
+
+        try {
+            departamentos = departamentoRepo.findAll();
+            municipios = municipioRepo.municipios();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        if(result.hasErrors()){
+            mav.addObject("departamentos", departamentos);
+            mav.addObject("municipios", municipios);
+            mav.setViewName("agregarCentro");
+        } else {
+            System.out.println("VOY MEDIO BIEN");
+            try {
+                centroEscolarService.insert(centroEscolar);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            mav.setViewName("admin");
+        }
+
+        return mav;
+    }
 }
 
