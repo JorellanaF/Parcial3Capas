@@ -69,10 +69,10 @@
                                        onclick="cargar_departamentos(this)" onreset="anular()">
                                 <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
-                                <form class="p-0 m-0" method="post" th:action="@{/editUsuario}">
+                                <form class="p-0 m-0" method="post" th:action="@{/editCentroE}">
                                     <input type="text" style="display: none" id="formC" th:name="codigoCF">
                                     <input type="text" style="display: none" id="formN" th:name="nombreCF">
-                                    <input type="text" style="display: none" id="formD" th:name="DireccionCF">
+                                    <input type="text" style="display: none" id="formD" th:name="direccionCF">
                                     <input type="text" style="display: none" id="formT" th:name="telefonoCF">
                                     <input type="text" style="display: none" id="formM" th:name="municipioCF">
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"

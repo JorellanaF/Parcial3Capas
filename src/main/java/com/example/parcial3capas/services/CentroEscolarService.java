@@ -9,4 +9,5 @@ import java.util.List;
 public interface CentroEscolarService {
     List<CentroEscolar> findAll() throws DataAccessException;
     void insert(CentroEscolar centroEscolar) throws DataAccessException;
+    CentroEscolar findByID(Integer ID) throws DataAccessException;
 }

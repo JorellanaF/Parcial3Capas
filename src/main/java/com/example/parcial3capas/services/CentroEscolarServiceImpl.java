@@ -34,4 +34,9 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 
         centroEscolarRepo.save(centroEscolar);
     }
+
+    @Override
+    public CentroEscolar findByID(Integer ID) throws DataAccessException {
+        return centroEscolarRepo.findByCodigoC(ID);
+    }
 }

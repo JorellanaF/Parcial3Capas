@@ -112,8 +112,6 @@ public class MainController {
         List<Municipio> municipios = null;
         List<Rol> roles = null;
 
-        System.out.println("YEEEEEEI");
-
         try {
             departamentos = departamentoRepo.findAll();
             municipios = municipioRepo.municipios();
@@ -239,30 +237,27 @@ public class MainController {
     }
 
     //*******************************Listado EDITADO de Centros Escolares*******************************
-    @RequestMapping("/editCentro")
-    public ModelAndView editC(@RequestParam(value = "codigoUF") String codigoU, @RequestParam(value = "nombreF") String nombre, @RequestParam(value = "apellidoF") String apellido,
-                              @RequestParam(value = "fechaF") String fechaNacimiento, @RequestParam(value = "direccionF") String direccionResidencia,
-                              @RequestParam(value = "estadoF") String estado, @RequestParam(value = "rolF") String rol, @RequestParam(value = "departamentoF") String departamento){
+    @RequestMapping("/editCentroE")
+    public ModelAndView editC(@RequestParam(value = "codigoCF") String codigo, @RequestParam(value = "nombreCF") String nombre,
+                              @RequestParam(value = "direccionCF") String direccion, @RequestParam(value = "telefonoCF") String telefono,
+                              @RequestParam(value = "municipioCF") String municipio){
         ModelAndView mav = new ModelAndView();
 
-        Integer codigo = Integer.parseInt(codigoU);
-        Integer roldd = Integer.parseInt(rol);
+        System.out.println("AQUIIIII ELCODIFO " + codigo);
 
-        Usuario usuarioAct = usuarioService.findByID(codigo);
+        Integer ID = Integer.parseInt(codigo);
+        Integer IDM = Integer.parseInt(municipio);
 
-        usuarioAct.setNombre(nombre);
-        usuarioAct.setApellido(apellido);
-        usuarioAct.setFechaNacimiento(fechaNacimiento);
-        usuarioAct.setDireccionResidencia(direccionResidencia);
-        usuarioAct.setEstado(estado);
-        usuarioAct.setCodigoRol(roldd);
-        usuarioAct.setCodigoDepartamento(departamentoRepo.findByDepartamento(departamento).getCodigoDepartamento());
+        CentroEscolar centroEscolar = centroEscolarService.findByID(ID);
 
+        centroEscolar.setNombre(nombre);
+        centroEscolar.setDireccion(direccion);
+        centroEscolar.setTelefono(telefono);
+        centroEscolar.setCodigoMunicipio(IDM);
 
-        Usuario usuarioE = usuarioAct;
-        usuarioService.insert(usuarioE);
+        centroEscolarService.insert(centroEscolar);
 
-        mav.setViewName("exito");
+        mav.setViewName("listaCentrosE");
 
         return mav;
     }
@@ -311,7 +306,6 @@ public class MainController {
             mav.addObject("municipios", municipios);
             mav.setViewName("agregarCentro");
         } else {
-            System.out.println("VOY MEDIO BIEN");
             try {
                 centroEscolarService.insert(centroEscolar);
             }catch(Exception e) {
@@ -322,5 +316,6 @@ public class MainController {
 
         return mav;
     }
+    //*******************************Validar registrar Centro Escolar*******************************
 }
 
