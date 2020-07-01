@@ -332,7 +332,9 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            mav.setViewName("admin");
+            List<CentroEscolar> centrosEscolares = centroEscolarService.findAllAsc();
+            mav.addObject("centroEscolares", centrosEscolares);
+            mav.setViewName("listaCentrosE");
         }
 
         return mav;
@@ -347,6 +349,56 @@ public class MainController {
 
         mav.addObject("materias", materias);
         mav.setViewName("listaMaterias");
+
+        return mav;
+    }
+    //*******************************Editar Materia*******************************
+    @RequestMapping("/editM")
+    public ModelAndView editCM(@RequestParam(value = "codigoF") String codigo, @RequestParam(value = "materiaF") String nombre){
+        ModelAndView mav = new ModelAndView();
+
+        Integer ID = Integer.parseInt(codigo);
+
+        Materia materia = materiaService.findByID(ID);
+
+        materia.setMateria(nombre);
+
+        materiaService.insert(materia);
+
+        List<Materia> materias = materiaService.findAllAsc();
+
+        mav.addObject("materias", materias);
+        mav.setViewName("listaMaterias");
+
+        return mav;
+    }
+    //*******************************Editar Materia*******************************
+    @RequestMapping("/agregarM")
+    public ModelAndView agregarM(){
+        ModelAndView mav = new ModelAndView();
+
+        mav.addObject("materia", new Materia());
+        mav.setViewName("agregarMateria");
+
+        return mav;
+    }
+    //*******************************Validar registro Materia*******************************
+    @RequestMapping("/validarM")
+    public ModelAndView validarM(@Valid @ModelAttribute Materia materia, BindingResult result){
+        ModelAndView mav = new ModelAndView();
+
+        if(result.hasErrors()){
+            mav.setViewName("agregarMateria");
+        } else {
+            try {
+                materiaService.insert(materia);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+            List<Materia> materias = materiaService.findAllAsc();
+            mav.addObject("materias", materias);
+            mav.setViewName("listaMaterias");
+        }
 
         return mav;
     }

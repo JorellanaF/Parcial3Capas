@@ -36,8 +36,8 @@
     <div class="col-md-10 Vistas pr-0">
         <div class="col-md-12 row justify-content-between Barra mr-0">
             <div class="col-md-6">
-                <form class="col-md-" th:action="@{/agregarC}">
-                    <input class="w-auto btn btn-success" type="submit" value="Agregar Centro Escolar">
+                <form class="col-md-" th:action="@{/agregarM}">
+                    <input class="w-auto btn btn-success" type="submit" value="Agregar Materia">
                 </form>
             </div>
             <div class="col-md- row justify-content-end p-0">
@@ -66,7 +66,7 @@
                                        onclick="cargar_departamentos(this)" onreset="anular()">
                                 <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
-                                <form class="p-0 m-0" method="post" th:action="@{/editCentroE}">
+                                <form class="p-0 m-0" method="post" th:action="@{/editM}">
                                     <input type="text" style="display: none" id="formC" name="codigoF" th:name="codigoF">
                                     <input type="text" style="display: none" id="formM" name="materiaF" th:name="materiaF">
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"
