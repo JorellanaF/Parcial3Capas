@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Administrador</title>
+    <link rel="stylesheet" type="text/css" href="css/listaUsuarios.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/7f66318f6f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="row Contenedor">
+    <div class="col-md-2 Menu pr-0">
+        <div class="col-md-12 logo row m-0">
+            <div class="col-md-12 m-1 row">
+                <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
+                <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/admin}">Dash Admin</a></h4>
+            </div>
+        </div>
+        <div class="col-md-12 Opciones row m-0">
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-school col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoC}">Centros Escolares</a>
+            </div>
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-book col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listaM}">Materias</a>
+            </div>
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-users col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 Vistas pr-0">
+        <div class="col-md-12 row justify-content-between Barra mr-0">
+            <div class="col-md-6">
+                <form class="col-md-" th:action="@{/agregarC}">
+                    <input class="w-auto btn btn-success" type="submit" value="Agregar Centro Escolar">
+                </form>
+            </div>
+            <div class="col-md- row justify-content-end p-0">
+                <form class="col-md-12 justify-content-end" th:action="@{/logout}">
+                    <input class="w-auto btn btn-danger" type="submit" value="Logout">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 row Tablas">
+            <div class="col-md-12 row justify-content-md-center">
+                <div class="row justify-content-center">
+                    <h1 class="col-md-12 ">Listado de Centros Escolares</h1>
+                </div>
+            </div>
+            <div class="col-md-12 row m-0">
+                <table class="col-md-12 listado" id="listado">
+                    <thead class="cabecera">
+                    <th class="col-">Accion</th>
+                    <th class="col-">CDU</th>
+                    <th class="col-">Materia</th>
+                    </thead>
+                    <th:block th:each="materias, row:${materias}">
+                        <tr>
+                            <th>
+                                <input class="btn fa btn-info" id="editar" type="submit" value="&#xf4ff;"
+                                       onclick="cargar_departamentos(this)" onreset="anular()">
+                                <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
+                                       value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
+                                <form class="p-0 m-0" method="post" th:action="@{/editCentroE}">
+                                    <input type="text" style="display: none" id="formC" name="codigoF" th:name="codigoF">
+                                    <input type="text" style="display: none" id="formN" name="materiaF" th:name="materiaF">
+                                    <input class="btn fa btn-success" id="confirmar" style="display: none"
+                                           type="submit" value="&#xf058;">
+                                </form>
+                            </th>
+                            <th>
+                                <p id="codigoCP" th:text="${materias.codigoMateria}"
+                                   style="display: block"></p>
+                            </th>
+                            <th>
+                                <p id="nombreCP" th:text="${materias.materia}" style="display: block"></p>
+                                <input id="nombre" type="text" placeholder="Nombre" style="display: none">
+                            </th>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

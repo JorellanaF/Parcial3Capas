@@ -5,6 +5,7 @@ import com.example.parcial3capas.repositories.DepartamentoRepo;
 import com.example.parcial3capas.repositories.MunicipioRepo;
 import com.example.parcial3capas.repositories.RolRepo;
 import com.example.parcial3capas.services.CentroEscolarService;
+import com.example.parcial3capas.services.MateriaService;
 import com.example.parcial3capas.services.MunicipioService;
 import com.example.parcial3capas.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,40 +46,8 @@ public class MainController {
     @Autowired
     CentroEscolarService centroEscolarService;
 
-    //Pagina principal LOGIN
-    @RequestMapping("/")
-    public ModelAndView home(){
-        ModelAndView mav = new ModelAndView();
-
-        mav.setViewName("login");
-
-        return mav;
-    }
-
-    //Pagina de REGISTRO
-    @RequestMapping("/registro")
-    public ModelAndView registro(){
-        ModelAndView mav = new ModelAndView();
-        List<Departamento> departamentos = null;
-        List<Municipio> municipios = null;
-        List<Rol> roles = null;
-
-        try {
-            departamentos = departamentoRepo.findAll();
-            municipios = municipioRepo.municipios();
-            roles = rolRepo.findAll();
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        mav.addObject("usuario", new Usuario());
-        mav.addObject("departamentos", departamentos);
-        mav.addObject("municipios", municipios);
-        mav.addObject("roles", roles);
-        mav.setViewName("registro");
-
-        return mav;
-    }
+    @Autowired
+    MateriaService materiaService;
 
     @RequestMapping("/admin")
     public ModelAndView admin(){
@@ -107,6 +76,66 @@ public class MainController {
         return mav;
     }
 
+    //*******************************LOGIN*******************************
+    //Pagina principal LOGIN
+    @RequestMapping("/")
+    public ModelAndView home(){
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("login");
+
+        return mav;
+    }
+
+    //Validando el formulario de LOGIN
+    @RequestMapping("/validDash")
+    public ModelAndView validarDash(@RequestParam(value = "usuario") String user, @RequestParam(value = "password") String pass){
+        ModelAndView mav = new ModelAndView();
+
+        if(user!= null && pass!= null){
+            Usuario usuario = usuarioService.findByUsuarioAndContraseña(user, pass);
+            if(usuario != null){
+                if(usuario.getRol().getRol().equals("Administrador")){
+                    mav.setViewName("admin");
+                } else{
+                    mav.setViewName("coordinador");
+                }
+            } else {
+                mav.setViewName("login");
+            }
+        } else {
+            mav.setViewName("login");
+        }
+
+        return mav;
+    }
+    //*******************************LOGIN*******************************
+
+    //*******************************Usuario*******************************
+    //Pagina de REGISTRO
+    @RequestMapping("/registro")
+    public ModelAndView registro(){
+        ModelAndView mav = new ModelAndView();
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
+        List<Rol> roles = null;
+
+        try {
+            departamentos = departamentoRepo.findAll();
+            municipios = municipioRepo.municipios();
+            roles = rolRepo.findAll();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        mav.addObject("usuario", new Usuario());
+        mav.addObject("departamentos", departamentos);
+        mav.addObject("municipios", municipios);
+        mav.addObject("roles", roles);
+        mav.setViewName("registro");
+
+        return mav;
+    }
 
     //Validando el formularo de Registro
     @RequestMapping("/validarR")
@@ -135,29 +164,6 @@ public class MainController {
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            mav.setViewName("login");
-        }
-
-        return mav;
-    }
-
-    //Validando el formulario de LOGIN
-    @RequestMapping("/validDash")
-    public ModelAndView validarDash(@RequestParam(value = "usuario") String user, @RequestParam(value = "password") String pass){
-        ModelAndView mav = new ModelAndView();
-
-        if(user!= null && pass!= null){
-            Usuario usuario = usuarioService.findByUsuarioAndContraseña(user, pass);
-            if(usuario != null){
-                if(usuario.getRol().getRol().equals("Administrador")){
-                    mav.setViewName("admin");
-                } else{
-                    mav.setViewName("coordinador");
-                }
-            } else {
-                mav.setViewName("login");
-            }
-        } else {
             mav.setViewName("login");
         }
 
@@ -218,6 +224,10 @@ public class MainController {
 
         return mav;
     }
+    //*******************************Usuario*******************************
+
+
+
     //*******************************Listado EDITADO de Usuarios*******************************
 
     //*******************************Listado de Centros Escolares*******************************
@@ -328,5 +338,17 @@ public class MainController {
         return mav;
     }
     //*******************************Validar registrar Centro Escolar*******************************
+
+    //*******************************Listado EDITADO de Materias*******************************
+    @RequestMapping("/listaM")
+    public ModelAndView listaM(){
+        ModelAndView mav = new ModelAndView();
+        List<Materia> materias = materiaService.findAllAsc();
+
+        mav.addObject("materias", materias);
+        mav.setViewName("listaMaterias");
+
+        return mav;
+    }
 }
 
