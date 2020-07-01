@@ -49,7 +49,7 @@
         <div class="col-md-12 row Tablas">
             <div class="col-md-12 row justify-content-md-center">
                 <div class="row justify-content-center">
-                    <h1 class="col-md-12 ">Listado de Centros Escolares</h1>
+                    <h1 class="col-md-12 ">Listado de Materias</h1>
                 </div>
             </div>
             <div class="col-md-12 row m-0">
@@ -68,18 +68,18 @@
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
                                 <form class="p-0 m-0" method="post" th:action="@{/editCentroE}">
                                     <input type="text" style="display: none" id="formC" name="codigoF" th:name="codigoF">
-                                    <input type="text" style="display: none" id="formN" name="materiaF" th:name="materiaF">
+                                    <input type="text" style="display: none" id="formM" name="materiaF" th:name="materiaF">
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"
                                            type="submit" value="&#xf058;">
                                 </form>
                             </th>
                             <th>
-                                <p id="codigoCP" th:text="${materias.codigoMateria}"
+                                <p id="codigoP" th:text="${materias.codigoMateria}"
                                    style="display: block"></p>
                             </th>
                             <th>
-                                <p id="nombreCP" th:text="${materias.materia}" style="display: block"></p>
-                                <input id="nombre" type="text" placeholder="Nombre" style="display: none">
+                                <p id="materiaP" th:text="${materias.materia}" style="display: block"></p>
+                                <input id="materia" type="text" placeholder="Materia" style="display: none">
                             </th>
                         </tr>
                     </th:block>
@@ -90,3 +90,97 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    var editando = false;
+
+    function anular() {
+
+        window.location.reload();
+
+    }
+
+    //PRESIONA EL BOTON EDITAR
+    function cargar_departamentos(boton) {
+        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+        var celda = usuario.parentNode //Celda seleccionada NODO TD
+
+        var parrafos = celda.getElementsByTagName('p');
+
+        //Capturar los datos del usuario en los parrafos INICIO
+        const materia = parrafos[1].textContent;
+        //Capturar los datos del usuario en los parrafos FIN
+
+        for (i = 0; i < parrafos.length; i++) {
+            if (parrafos[i].id === "codigoP") {
+                parrafos[i].style.display = "block";
+            } else {
+                parrafos[i].style.display = "none";
+            }
+        }
+
+        /*var selects = celda.getElementsByTagName('select');
+        for (i = 0; i < selects.length; i++) {
+            selects[i].style.display = "block";
+        }*/
+
+        var inputs = celda.getElementsByTagName('input');
+        for (i = 0; i < inputs.length; i++) {
+            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formM") {
+                inputs[i].style.display = "none";
+            } else {
+                if (i === 5) {
+                    inputs[i].placeholder = materia;
+                }
+                inputs[i].style.display = "block";
+                inputs[i].style.minWidth = "100%! Important";
+                inputs[i].style.width = "100%";
+            }
+        }
+    }
+
+    //PRESIONA EL BOTON GUARDAR
+    function guardado(boton) {
+        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+        var celda = usuario.parentNode //Celda seleccionada NODO TD
+
+        var parrafos = celda.getElementsByTagName('p');
+        //var selects = celda.getElementsByTagName('select');
+        var inputs = celda.getElementsByTagName('input');
+
+        const materia = parrafos[1].textContent;
+
+        let i = 0;
+        let j = 7;
+        do {
+            parrafos[i].style.display = "block"
+            i++
+        } while (i < parrafos.length);
+        parrafos[1].textContent = inputs[5].value
+        //-----------------------------Parrafos FIN
+
+        for (t = 0; t < inputs.length; t++) {
+            if (inputs[t].id === "confirmar") {
+                inputs[t].style.display = "block";
+            } else {
+                inputs[t].style.display = "none";
+            }
+
+        }
+
+        /*for (t = 0; t < selects.length; t++) {
+            selects[t].style.display = "none";
+        }*/
+
+
+        posicion = 2
+        posicionI = 0
+
+        do {
+            inputs[posicion].value = parrafos[posicionI].textContent
+            posicionI++
+            posicion++
+        } while (posicion < inputs.length-2)
+    }
+
+</script>
