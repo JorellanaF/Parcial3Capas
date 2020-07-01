@@ -7,11 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 
     Usuario findByUsuario(String usuario);
 
     Usuario findByCodigoUsuario(Integer ID);
+
+    List<Usuario> findAllByOrderByCodigoUsuarioAsc();
 
     @Query(nativeQuery=true, value="SELECT u.c_rol FROM public.usuario u WHERE u.usuario = :username")
     Usuario findRol(@Param("username") String username) throws DataAccessException;

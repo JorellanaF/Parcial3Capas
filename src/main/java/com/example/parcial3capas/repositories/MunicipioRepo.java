@@ -15,4 +15,6 @@ public interface MunicipioRepo extends JpaRepository<Municipio, Integer> {
 
     @Query(nativeQuery=true, value="SELECT * FROM public.municipio m WHERE m.c_municipio = :ID")
     Municipio porID(Integer ID) throws DataAccessException;
+
+    Municipio findByMunicipio(String municipio);
 }

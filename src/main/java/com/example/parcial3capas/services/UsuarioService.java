@@ -11,5 +11,6 @@ public interface UsuarioService {
     Usuario findByUsername(String username) throws DataAccessException;
     String findRol(String usuario) throws DataAccessException;
     List<Usuario> findAll() throws DataAccessException;
+    List<Usuario> findAllAsc() throws DataAccessException;
     Usuario findByID(Integer ID) throws DataAccessException;
 }

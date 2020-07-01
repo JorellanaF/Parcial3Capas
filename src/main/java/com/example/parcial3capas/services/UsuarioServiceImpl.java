@@ -84,6 +84,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
+    public List<Usuario> findAllAsc() throws DataAccessException {
+        return usuarioRepo.findAllByOrderByCodigoUsuarioAsc();
+    }
+
+    @Override
     public Usuario findByID(Integer ID) throws DataAccessException {
         return usuarioRepo.findByCodigoUsuario(ID);
     }

@@ -5,6 +5,7 @@ import com.example.parcial3capas.repositories.DepartamentoRepo;
 import com.example.parcial3capas.repositories.MunicipioRepo;
 import com.example.parcial3capas.repositories.RolRepo;
 import com.example.parcial3capas.services.CentroEscolarService;
+import com.example.parcial3capas.services.MunicipioService;
 import com.example.parcial3capas.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,9 @@ public class MainController {
 
     @Autowired
     private MunicipioRepo municipioRepo;
+
+    @Autowired
+    MunicipioService municipioService;
 
     @Autowired
     private RolRepo rolRepo;
@@ -167,7 +171,7 @@ public class MainController {
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
         List<Rol> roles = null;
-        List<Usuario> usuarios = usuarioService.findAll();
+        List<Usuario> usuarios = usuarioService.findAllAsc();
 
         try {
             departamentos = departamentoRepo.findAll();
@@ -221,7 +225,7 @@ public class MainController {
     public ModelAndView listadoC(){
         ModelAndView mav = new ModelAndView();
         List<Municipio> municipios = null;
-        List<CentroEscolar> centroEscolares = centroEscolarService.findAll();
+        List<CentroEscolar> centroEscolares = centroEscolarService.findAllAsc();
 
         try {
             municipios = municipioRepo.municipios();
@@ -242,21 +246,28 @@ public class MainController {
                               @RequestParam(value = "direccionCF") String direccion, @RequestParam(value = "telefonoCF") String telefono,
                               @RequestParam(value = "municipioCF") String municipio){
         ModelAndView mav = new ModelAndView();
+        List<Municipio> municipios = null;
+        List<CentroEscolar> centroEscolares = centroEscolarService.findAllAsc();
 
-        System.out.println("AQUIIIII ELCODIFO " + codigo);
+        try {
+            municipios = municipioRepo.municipios();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
 
         Integer ID = Integer.parseInt(codigo);
-        Integer IDM = Integer.parseInt(municipio);
 
         CentroEscolar centroEscolar = centroEscolarService.findByID(ID);
 
         centroEscolar.setNombre(nombre);
         centroEscolar.setDireccion(direccion);
         centroEscolar.setTelefono(telefono);
-        centroEscolar.setCodigoMunicipio(IDM);
+        centroEscolar.setCodigoMunicipio(municipioService.findMunicipio(municipio).getCodigoMunicipio());
 
         centroEscolarService.insert(centroEscolar);
 
+        mav.addObject("municipios", municipios);
+        mav.addObject("centroEscolares", centroEscolares);
         mav.setViewName("listaCentrosE");
 
         return mav;

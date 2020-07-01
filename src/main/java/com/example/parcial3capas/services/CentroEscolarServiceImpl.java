@@ -28,6 +28,11 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
     }
 
     @Override
+    public List<CentroEscolar> findAllAsc() throws DataAccessException {
+        return centroEscolarRepo.findAllByOrderByCodigoCentroAsc();
+    }
+
+    @Override
     @Transactional
     public void insert(CentroEscolar centroEscolar) throws DataAccessException {
         centroEscolar.setMunicipio(municipioRepo.porID(centroEscolar.getCodigoMunicipio()));
