@@ -70,11 +70,16 @@
                                 <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
                                 <form class="p-0 m-0" method="post" th:action="@{/editCentroE}">
-                                    <input type="text" style="display: none" id="formC" name="codigoCF" th:name="codigoCF">
-                                    <input type="text" style="display: none" id="formN" name="nombreCF" th:name="nombreCF">
-                                    <input type="text" style="display: none" id="formD" name="direccionCF" th:name="direccionCF">
-                                    <input type="text" style="display: none" id="formT" name="telefonoCF" th:name="telefonoCF">
-                                    <input type="text" style="display: none" id="formM" name="municipioCF" th:name="municipioCF">
+                                    <input type="text" style="display: none" id="formC" name="codigoCF"
+                                           th:name="codigoCF">
+                                    <input type="text" style="display: none" id="formN" name="nombreCF"
+                                           th:name="nombreCF">
+                                    <input type="text" style="display: none" id="formD" name="direccionCF"
+                                           th:name="direccionCF">
+                                    <input type="text" style="display: none" id="formT" name="telefonoCF"
+                                           th:name="telefonoCF">
+                                    <input type="text" style="display: none" id="formM" name="municipioCF"
+                                           th:name="municipioCF">
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"
                                            type="submit" value="&#xf058;">
                                 </form>
@@ -96,7 +101,8 @@
                                 <input id="telefono" type="text" style="display: none" placeholder="1234-5678">
                             </th>
                             <th>
-                                <p id="municipio" th:text="${centrosEscolares.municipio.municipio}" style="display: block"></p>
+                                <p id="municipio" th:text="${centrosEscolares.municipio.municipio}"
+                                   style="display: block"></p>
                             </th>
                         </tr>
                     </th:block>
@@ -119,48 +125,54 @@
 
     //PRESIONA EL BOTON EDITAR
     function cargar_departamentos(boton) {
-        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
-        var celda = usuario.parentNode //Celda seleccionada NODO TD
+        if (editando == false) {
+            var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+            var celda = usuario.parentNode //Celda seleccionada NODO TD
 
-        var parrafos = celda.getElementsByTagName('p');
+            var parrafos = celda.getElementsByTagName('p');
 
-        //Capturar los datos del usuario en los parrafos INICIO
-        const nombre = parrafos[1].textContent;
-        const direccion = parrafos[2].textContent;
-        const telefono = parrafos[3].textContent;
-        //Capturar los datos del usuario en los parrafos FIN
+            //Capturar los datos del usuario en los parrafos INICIO
+            const nombre = parrafos[1].textContent;
+            const direccion = parrafos[2].textContent;
+            const telefono = parrafos[3].textContent;
+            //Capturar los datos del usuario en los parrafos FIN
 
-        for (i = 0; i < parrafos.length; i++) {
-            if (parrafos[i].id === "codigoCP" || parrafos[i].id === "municipio") {
-                parrafos[i].style.display = "block";
-            } else {
-                parrafos[i].style.display = "none";
+            for (i = 0; i < parrafos.length; i++) {
+                if (parrafos[i].id === "codigoCP" || parrafos[i].id === "municipio") {
+                    parrafos[i].style.display = "block";
+                } else {
+                    parrafos[i].style.display = "none";
+                }
             }
-        }
 
-        /*var selects = celda.getElementsByTagName('select');
-        for (i = 0; i < selects.length; i++) {
-            selects[i].style.display = "block";
-        }*/
+            /*var selects = celda.getElementsByTagName('select');
+            for (i = 0; i < selects.length; i++) {
+                selects[i].style.display = "block";
+            }*/
 
-        var inputs = celda.getElementsByTagName('input');
-        for (i = 0; i < inputs.length; i++) {
-            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formD" || inputs[i].id === "formT" || inputs[i].id === "formM") {
-                inputs[i].style.display = "none";
-            } else {
-                if (i === 8) {
-                    inputs[i].placeholder = nombre;
+            var inputs = celda.getElementsByTagName('input');
+            for (i = 0; i < inputs.length; i++) {
+                if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formD" || inputs[i].id === "formT" || inputs[i].id === "formM") {
+                    inputs[i].style.display = "none";
+                } else {
+                    if (i === 8) {
+                        inputs[i].placeholder = nombre;
+                    }
+                    if (i === 9) {
+                        inputs[i].placeholder = direccion;
+                    }
+                    if (i === 10) {
+                        inputs[i].placeholder = telefono;
+                    }
+                    inputs[i].style.display = "block";
+                    inputs[i].style.minWidth = "100%! Important";
+                    inputs[i].style.width = "100%";
                 }
-                if (i === 9) {
-                    inputs[i].placeholder = direccion;
-                }
-                if (i === 10) {
-                    inputs[i].placeholder = telefono;
-                }
-                inputs[i].style.display = "block";
-                inputs[i].style.minWidth = "100%! Important";
-                inputs[i].style.width = "100%";
             }
+            editando = "true";
+        } else {
+            alert('Solo se puede editar uns fila. Recargue la página para poder editar otra');
+
         }
     }
 
@@ -183,7 +195,7 @@
             do {
                 parrafos[i].style.display = "block"
                 if (i > 0) {
-                    if(i<4){
+                    if (i < 4) {
                         parrafos[i].textContent = inputs[j].value
                     } else {
                         break

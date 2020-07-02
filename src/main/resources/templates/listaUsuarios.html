@@ -146,22 +146,6 @@
 <script type="text/javascript">
     var editando = false;
 
-    function capturarEnvio() {
-
-        var btnEditar = document.getElementById('guardar'); //Boton editar
-
-        btnEditar.innerHTML = '<form name="formulario" method="post" th:action="@{/editUsuario}" onreset="anular()">' +
-            '<input type="hidden" value="' + document.getElementById('codigoU').textContent + '">' +
-            '<input type="hidden" value="' + document.getElementById('nombre').textContent + '">' +
-            '<input type="hidden" value="' + document.getElementById('apellido').textContent + '">' +
-            '<input type="hidden" value="' + document.getElementById('fecha').textContent + '">' +
-            '<input type="hidden" value="' + document.getElementById('direccion').textContent + '">' +
-            '<input type="hidden" value="' + document.getElementById('estado').textContent + '">' +
-            '<input type="hidden" value="' + document.getElementById('rol').textContent + '">' +
-            '<input class="btn fa btn-info" id="guardar" type="submit" value="&#xf0c7;">' +
-            '</form>';
-    }
-
     function anular() {
 
         window.location.reload();
@@ -170,48 +154,53 @@
 
     //PRESIONA EL BOTON EDITAR
     function cargar_departamentos(boton) {
-        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
-        var celda = usuario.parentNode //Celda seleccionada NODO TD
+        if (editando == false){
+            var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+            var celda = usuario.parentNode //Celda seleccionada NODO TD
 
-        var parrafos = celda.getElementsByTagName('p');
+            var parrafos = celda.getElementsByTagName('p');
 
-        //Capturar los datos del usuario en los parrafos INICIO
-        const nombre = parrafos[1].textContent;
-        const apellido = parrafos[2].textContent;
-        const direccion = parrafos[5].textContent;
-        //Capturar los datos del usuario en los parrafos FIN
+            //Capturar los datos del usuario en los parrafos INICIO
+            const nombre = parrafos[1].textContent;
+            const apellido = parrafos[2].textContent;
+            const direccion = parrafos[5].textContent;
+            //Capturar los datos del usuario en los parrafos FIN
 
-        for (i = 0; i < parrafos.length; i++) {
-            if (parrafos[i].id === "codigoUP" || parrafos[i].id === "edadP" || parrafos[i].id === "usuarioP" || parrafos[i].id === "departamentoP") {
-                parrafos[i].style.display = "block";
-            } else {
-                parrafos[i].style.display = "none";
+            for (i = 0; i < parrafos.length; i++) {
+                if (parrafos[i].id === "codigoUP" || parrafos[i].id === "edadP" || parrafos[i].id === "usuarioP" || parrafos[i].id === "departamentoP") {
+                    parrafos[i].style.display = "block";
+                } else {
+                    parrafos[i].style.display = "none";
+                }
             }
-        }
 
-        var selects = celda.getElementsByTagName('select');
-        for (i = 0; i < selects.length; i++) {
-            selects[i].style.display = "block";
-        }
-
-        var inputs = celda.getElementsByTagName('input');
-        for (i = 0; i < inputs.length; i++) {
-            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formA" || inputs[i].id === "formF" || inputs[i].id === "formD" || inputs[i].id === "formE" || inputs[i].id === "formR" || inputs[i].id === "formDe") {
-                inputs[i].style.display = "none";
-            } else {
-                if (i === 11) {
-                    inputs[i].placeholder = nombre;
-                }
-                if (i === 12) {
-                    inputs[i].placeholder = apellido;
-                }
-                if (i === 14) {
-                    inputs[i].placeholder = direccion;
-                }
-                inputs[i].style.display = "block";
-                inputs[i].style.minWidth = "100%! Important";
-                inputs[i].style.width = "100%";
+            var selects = celda.getElementsByTagName('select');
+            for (i = 0; i < selects.length; i++) {
+                selects[i].style.display = "block";
             }
+
+            var inputs = celda.getElementsByTagName('input');
+            for (i = 0; i < inputs.length; i++) {
+                if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formN" || inputs[i].id === "formA" || inputs[i].id === "formF" || inputs[i].id === "formD" || inputs[i].id === "formE" || inputs[i].id === "formR" || inputs[i].id === "formDe") {
+                    inputs[i].style.display = "none";
+                } else {
+                    if (i === 11) {
+                        inputs[i].placeholder = nombre;
+                    }
+                    if (i === 12) {
+                        inputs[i].placeholder = apellido;
+                    }
+                    if (i === 14) {
+                        inputs[i].placeholder = direccion;
+                    }
+                    inputs[i].style.display = "block";
+                    inputs[i].style.minWidth = "100%! Important";
+                    inputs[i].style.width = "100%";
+                }
+            }
+            editando = true;
+        } else {alert ('Solo se puede editar uns fila. Recargue la página para poder editar otra');
+
         }
     }
 

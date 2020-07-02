@@ -67,8 +67,10 @@
                                 <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
                                 <form class="p-0 m-0" method="post" th:action="@{/editM}">
-                                    <input type="text" style="display: none" id="formC" name="codigoF" th:name="codigoF">
-                                    <input type="text" style="display: none" id="formM" name="materiaF" th:name="materiaF">
+                                    <input type="text" style="display: none" id="formC" name="codigoF"
+                                           th:name="codigoF">
+                                    <input type="text" style="display: none" id="formM" name="materiaF"
+                                           th:name="materiaF">
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"
                                            type="submit" value="&#xf058;">
                                 </form>
@@ -102,40 +104,41 @@
 
     //PRESIONA EL BOTON EDITAR
     function cargar_departamentos(boton) {
-        var usuario = boton.parentNode //Tabla seleccionada NODO TRD
-        var celda = usuario.parentNode //Celda seleccionada NODO TD
+        if (editando == false) {
+            var usuario = boton.parentNode //Tabla seleccionada NODO TRD
+            var celda = usuario.parentNode //Celda seleccionada NODO TD
 
-        var parrafos = celda.getElementsByTagName('p');
+            var parrafos = celda.getElementsByTagName('p');
 
-        //Capturar los datos del usuario en los parrafos INICIO
-        const materia = parrafos[1].textContent;
-        //Capturar los datos del usuario en los parrafos FIN
+            //Capturar los datos del usuario en los parrafos INICIO
+            const materia = parrafos[1].textContent;
+            //Capturar los datos del usuario en los parrafos FIN
 
-        for (i = 0; i < parrafos.length; i++) {
-            if (parrafos[i].id === "codigoP") {
-                parrafos[i].style.display = "block";
-            } else {
-                parrafos[i].style.display = "none";
-            }
-        }
-
-        /*var selects = celda.getElementsByTagName('select');
-        for (i = 0; i < selects.length; i++) {
-            selects[i].style.display = "block";
-        }*/
-
-        var inputs = celda.getElementsByTagName('input');
-        for (i = 0; i < inputs.length; i++) {
-            if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formM") {
-                inputs[i].style.display = "none";
-            } else {
-                if (i === 5) {
-                    inputs[i].placeholder = materia;
+            for (i = 0; i < parrafos.length; i++) {
+                if (parrafos[i].id === "codigoP") {
+                    parrafos[i].style.display = "block";
+                } else {
+                    parrafos[i].style.display = "none";
                 }
-                inputs[i].style.display = "block";
-                inputs[i].style.minWidth = "100%! Important";
-                inputs[i].style.width = "100%";
             }
+
+            var inputs = celda.getElementsByTagName('input');
+            for (i = 0; i < inputs.length; i++) {
+                if (inputs[i].id === "editar" || inputs[i].id === "confirmar" || inputs[i].id === "formC" || inputs[i].id === "formM") {
+                    inputs[i].style.display = "none";
+                } else {
+                    if (i === 5) {
+                        inputs[i].placeholder = materia;
+                    }
+                    inputs[i].style.display = "block";
+                    inputs[i].style.minWidth = "100%! Important";
+                    inputs[i].style.width = "100%";
+                }
+            }
+            editando = true;
+        } else {
+            alert('Solo se puede editar uns fila. Recargue la página para poder editar otra');
+
         }
     }
 
@@ -168,11 +171,6 @@
 
         }
 
-        /*for (t = 0; t < selects.length; t++) {
-            selects[t].style.display = "none";
-        }*/
-
-
         posicion = 2
         posicionI = 0
 
@@ -180,7 +178,7 @@
             inputs[posicion].value = parrafos[posicionI].textContent
             posicionI++
             posicion++
-        } while (posicion < inputs.length-2)
+        } while (posicion < inputs.length - 2)
     }
 
 </script>

@@ -95,10 +95,15 @@ public class MainController {
         if(user!= null && pass!= null){
             Usuario usuario = usuarioService.findByUsuarioAndContraseña(user, pass);
             if(usuario != null){
-                if(usuario.getRol().getRol().equals("Administrador")){
-                    mav.setViewName("admin");
-                } else{
-                    mav.setViewName("coordinador");
+                if(usuario.getEstado().equals("activo")){
+                    if(usuario.getRol().getRol().equals("Administrador")){
+                        mav.setViewName("admin");
+                    } else{
+                        mav.setViewName("coordinador");
+                    }
+                } else {
+                    mav.addObject("inactivo", "No tiene acceso al sistema. Su cuenta esta Inactiva");
+                    mav.setViewName("login");
                 }
             } else {
                 mav.setViewName("login");
@@ -144,6 +149,9 @@ public class MainController {
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
         List<Rol> roles = null;
+        String username = usuario.getUsuario();
+        Usuario usuarioE = usuarioService.findByUsername(username);
+        System.out.println(usuarioE);
 
         try {
             departamentos = departamentoRepo.findAll();
@@ -160,11 +168,20 @@ public class MainController {
             mav.setViewName("registro");
         }else {
             try {
-                usuarioService.insert(usuario);
+                if(usuarioE == null){
+                    usuarioService.insert(usuario);
+                    mav.addObject("usuarios", usuarioService.findAllAsc());
+                    mav.setViewName("listaUsuarios");
+                } else {
+                    mav.addObject("error", "Este usuario ya existe. Por favor ingrese otro.");
+                    mav.addObject("departamentos", departamentos);
+                    mav.addObject("municipios", municipios);
+                    mav.addObject("roles", roles);
+                    mav.setViewName("registro");
+                }
             }catch(Exception e) {
                 e.printStackTrace();
             }
-            mav.setViewName("login");
         }
 
         return mav;
