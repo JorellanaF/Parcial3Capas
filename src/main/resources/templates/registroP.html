@@ -13,71 +13,49 @@
     <div class="col-8 divimg"></div>
     <div class="col-4 p-4 align-self-center">
         <div class="row col-12 align-items-center">
-            <form class="col-12" method="post" th:action="@{/validarR}" th:object="${usuario}">
+            <form class="col-12" method="post" th:action="@{/validarRP}">
                 <h1 class="col-12 m-4 text-left">Registrarse</h1>
                 <div class="form-group row">
                     <label class="col-3">Nombre</label>
-                    <input class="col-9" type="text" placeholder="Nombre" th:field="*{nombre}">
-                    <span class="col-12 text-center errors" th:errors="*{nombre}" style="color: #FF0000"></span>
+                    <input class="col-9" type="text" placeholder="Nombre" th:name="nombre" maxlength="50" required>
                 </div>
                 <div class="form-group row">
                     <label class="col-3">Apellido</label>
-                    <input class="col-9" type="text" placeholder="Apellido" th:field="*{apellido}">
-                    <span class="col-12 text-center errors" th:errors="*{apellido}" style="color: #FF0000"></span>
+                    <input class="col-9" type="text" placeholder="Apellido" th:name="apellido" maxlength="50" required>
                 </div>
                 <div class="form-group row">
                     <label class="col-3">Fecha de nacimiento</label>
-                    <input class="col-9" id="fechaN" type="date" th:field="*{fechaNacimiento}">
-                    <span class="col-12 text-center errors" th:errors="*{fechaNacimiento}" style="color: #FF0000"></span>
+                    <input class="col-9" id="fechaN" type="date" th:name="fechaNacimiento" required>
                 </div>
                 <div class="form-group row">
                     <label class="col-3 text-center">Departamento de Residencia</label>
-                    <select class="col-9" name="departamento" id="departamento" th:field="*{codigoDepartamento}" onchange="select()">
+                    <select class="col-9" name="departamento" id="departamento" th:name="codigoDepartamento" onchange="select()">
                         <option class="col-" th:each="departamento, row: ${departamentos}" th:value="${departamento.codigoDepartamento}" th:text="${departamento.departamento}"></option>
                     </select>
                 </div>
                 <div class="form-group row">
                     <label class="col-3 text-center">Municipio de Residencia</label>
-                    <select class="col-9 w-100" name="municipio" id="municipio">
+                    <select class="col-9 w-100" name="municipio" id="municipio" th:name="codigoMunicipio">
                         <option class="col-12" th:each="municipio, row: ${municipios}" th:value="${municipio.departamento.codigoDepartamento}" th:text="${municipio.municipio}"></option>
                     </select>
                 </div>
                 <div class="form-group row">
                     <label class="col-3">Direccion</label>
-                    <input class="col-9" type="text" placeholder="Direccion" th:field="*{direccionResidencia}">
-                    <span class="col-12 text-center errors" th:errors="*{direccionResidencia}" style="color: #FF0000"></span>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 text-center">Estado</label>
-                    <div class="form-group form-check form-check-inline col-3 ml-md-auto">
-                        <input class="form-check-input" type="checkbox" name="estado1" id="estado1" th:field="*{estado}" th:value="${'Activo'}">
-                        <label class="form-check-label" for="estado1">Activo</label>
-                    </div>
-                    <div class="form-group form-check form-check-inline col-3 ml-md-auto">
-                        <input class="form-check-input" type="checkbox" name="estado2" id="estado2" th:field="*{estado}" th:value="${'Inactivo'}">
-                        <label class="form-check-label" for="estado2">Inactivo</label>
-                    </div>
-                    <span class="col-3" th:errors="*{estado}" style="color: #FF0000"></span>
+                    <input class="col-9" type="text" placeholder="Direccion" th:name="direccionResidencia" maxlength="150" required>
                 </div>
                 <div class="form-group row">
                     <label class="col-3">Nombre de Usuario</label>
-                    <input class="col-9" type="text" placeholder="Usuario" th:field="*{usuario}">
-                    <span class="col-12 text-center errors" th:errors="*{usuario}" style="color: #FF0000"></span>
-                    <span class="col-12 text-center errors" th:text="${error}" style="color: #FF0000"></span>
+                    <input class="col-9" type="text" placeholder="Usuario" th:name="usuario" maxlength="50" required>
                 </div>
                 <div class="form-group row">
                     <label class="col-3">Password</label>
-                    <input class="col-9" type="password" placeholder="Password" th:field="*{contraseña}">
-                    <span class="col-12 text-center errors" th:errors="*{contraseña}" style="color: #FF0000"></span>
-                </div>
-                <div class="form-group row justify-content-between">
-                    <label class="col-3 text-center">Rol</label>
-                    <select class="col-9 w-100" name="rol" id="rol" th:field="*{codigoRol}">
-                        <option class="col-12" th:each="rol, row: ${roles}" th:value="${rol.codigoRol}" th:text="${rol.rol}"></option>
-                    </select>
+                    <input class="col-9" type="password" placeholder="Password" th:name="contraseña" maxlength="150" required>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Registrarse" th:action="@{/validarR}">
+                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Registrarse" th:action="@{/validarRP}">
+                </div>
+                <div class="form-group row justify-content-center">
+                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Iniciar Sesion" th:action="@{/}">
                 </div>
             </form>
         </div>
@@ -110,5 +88,3 @@
         municipios.options[0].selected = false
     }
 </script>
-
-

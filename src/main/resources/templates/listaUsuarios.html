@@ -75,14 +75,14 @@
                                 <input class="btn fa btn-info" id="guardar" style="display: none" type="submit"
                                        value="&#xf0c7;" onclick="guardado(this)" onreset="anular()">
                                 <form class="p-0 m-0" method="post" th:action="@{/editUsuario}">
-                                    <input type="text" style="display: none" id="formC" th:name="codigoUF">
-                                    <input type="text" style="display: none" id="formN" th:name="nombreF">
-                                    <input type="text" style="display: none" id="formA" th:name="apellidoF">
-                                    <input type="text" style="display: none" id="formF" th:name="fechaF">
-                                    <input type="text" style="display: none" id="formD" th:name="direccionF">
-                                    <input type="text" style="display: none" id="formE" th:name="estadoF">
-                                    <input type="text" style="display: none" id="formR" th:name="rolF">
-                                    <input type="text" style="display: none" id="formDe" th:name="departamentoF">
+                                    <input type="text" style="display: none" id="formC" th:name="codigoUF" required>
+                                    <input type="text" style="display: none" id="formN" th:name="nombreF" required>
+                                    <input type="text" style="display: none" id="formA" th:name="apellidoF" required>
+                                    <input type="text" style="display: none" id="formF" th:name="fechaF" required>
+                                    <input type="text" style="display: none" id="formD" th:name="direccionF" required>
+                                    <input type="text" style="display: none" id="formE" th:name="estadoF" required>
+                                    <input type="text" style="display: none" id="formR" th:name="rolF" required>
+                                    <input type="text" style="display: none" id="formDe" th:name="departamentoF" required>
                                     <input class="btn fa btn-success" id="confirmar" style="display: none"
                                            type="submit" value="&#xf058;">
                                 </form>
@@ -93,15 +93,15 @@
                             </th>
                             <th>
                                 <p id="nombreP" th:text="${usuario.nombre}" style="display: block"></p>
-                                <input id="nombre" type="text" placeholder="Nombre" style="display: none">
+                                <input id="nombre" type="text" placeholder="Nombre" style="display: none" required>
                             </th>
                             <th>
                                 <p id="apellidoP" th:text="${usuario.apellido}" style="display: block"></p>
-                                <input id="apellido" type="text" placeholder="Apellido" style="display: none">
+                                <input id="apellido" type="text" placeholder="Apellido" style="display: none" required>
                             </th>
                             <th>
                                 <p id="fechaP" th:text="${usuario.fechaNacimiento}" style="display: block"></p>
-                                <input id="fecha" type="date" style="display: none">
+                                <input id="fecha" type="date" style="display: none" required>
                             </th>
                             <th>
                                 <p id="edadP" th:text="${usuario.edad}" style="display: block"></p>
@@ -109,7 +109,7 @@
                             <th>
                                 <p id="direccionP" th:text="${usuario.direccionResidencia}"
                                    style="display: block"></p>
-                                <input id="direccion" type="text" placeholder="Direccion" style="display: none">
+                                <input id="direccion" type="text" placeholder="Direccion" style="display: none" required>
                             </th>
                             <th>
                                 <select id="estadoP" style="display: none">
@@ -225,86 +225,93 @@
         let i = 0;
         let j = 10;
         let k = 0;
-        do {
-            do {
-                parrafos[i].style.display = "block"
-                if (i > 0) {
-                    console.log("------------------------------------------")
-                    if (i === 4 || i === 7 || i === 9) {
-                        console.log("Hola soy EDAD")
-                        j--
-                    } else {
-                        if (i === 6 || i === 8) {
-                            if (i === 6) {
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                parrafos[i].textContent = selects[0].options[selects[0].selectedIndex].textContent
-                                console.log(parrafos[i].textContent)
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                k++
-                            }
-                            if (i === 8) {
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                parrafos[i].textContent = selects[1].options[selects[1].selectedIndex].textContent
-                                console.log(parrafos[i].textContent)
-                                console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
-                                k++
-                            }
-                        } else {
-                            console.log("---------------INPUTS--------------")
-                            console.log("---------------" + i + "---------------")
-                            parrafos[i].textContent = inputs[j].value
-                            console.log(parrafos[i].textContent)
-                            console.log("!!!!!!!!!!!!!!!!INPUTS!!!!!!!!!!!!!!!!!")
-                        }
-                    }
-                    console.log("---------------------------------------")
-                }
-                j++
-            } while (j <= i)
-            i++
-        } while (i < parrafos.length);
-        //-----------------------------Parrafos FIN
 
-        for (t = 0; t < inputs.length; t++) {
-            //console.log("Numero de Input" + i + " " + inputs[i].value)
-            if (inputs[t].id === "confirmar") {
-                inputs[t].style.display = "block";
+        for(m=11; m < inputs.length; m++){
+            if(inputs[m].value === ""){
+
             } else {
-                inputs[t].style.display = "none";
-            }
+                do {
+                    do {
+                        parrafos[i].style.display = "block"
+                        if (i > 0) {
+                            console.log("------------------------------------------")
+                            if (i === 4 || i === 7 || i === 9) {
+                                console.log("Hola soy EDAD")
+                                j--
+                            } else {
+                                if (i === 6 || i === 8) {
+                                    if (i === 6) {
+                                        console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                        parrafos[i].textContent = selects[0].options[selects[0].selectedIndex].textContent
+                                        console.log(parrafos[i].textContent)
+                                        console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                        k++
+                                    }
+                                    if (i === 8) {
+                                        console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                        parrafos[i].textContent = selects[1].options[selects[1].selectedIndex].textContent
+                                        console.log(parrafos[i].textContent)
+                                        console.log("!!!!!!!!!!!!!!!!SELECTS!!!!!!!!!!!!!!!!!")
+                                        k++
+                                    }
+                                } else {
+                                    console.log("---------------INPUTS--------------")
+                                    console.log("---------------" + i + "---------------")
+                                    parrafos[i].textContent = inputs[j].value
+                                    console.log(parrafos[i].textContent)
+                                    console.log("!!!!!!!!!!!!!!!!INPUTS!!!!!!!!!!!!!!!!!")
+                                }
+                            }
+                            console.log("---------------------------------------")
+                        }
+                        j++
+                    } while (j <= i)
+                    i++
+                } while (i < parrafos.length);
+                //-----------------------------Parrafos FIN
 
+                for (t = 0; t < inputs.length; t++) {
+                    //console.log("Numero de Input" + i + " " + inputs[i].value)
+                    if (inputs[t].id === "confirmar") {
+                        inputs[t].style.display = "block";
+                    } else {
+                        inputs[t].style.display = "none";
+                    }
+
+                }
+
+                for (t = 0; t < selects.length; t++) {
+                    //console.log("Numero de Select" + i + " " + selects[i].textContent)
+                    selects[t].style.display = "none";
+                }
+
+                posicion = 2
+                posicionI = 11
+                posicionS = 0
+
+                for (i = 0; i < inputs.length; i++) {
+                }
+
+                do {
+                    if (posicion === 2) {
+                        inputs[posicion].value = parrafos[0].textContent
+                    }
+                    if (posicion > 2 && posicion < 7) {
+                        inputs[posicion].value = inputs[posicionI].value
+                        posicionI++
+                    }
+                    if (posicion > 6 && posicion < 9) {
+                        console.log("Actual -> 2")
+                        inputs[posicion].value = selects[posicionS].value
+                        posicionS++
+                    }
+                    if (posicion === 9) {
+                        inputs[posicion].value = parrafos[9].textContent
+                    }
+                    posicion++
+                } while (posicion < inputs.length - 4)
+            }
         }
-
-        for (t = 0; t < selects.length; t++) {
-            //console.log("Numero de Select" + i + " " + selects[i].textContent)
-            selects[t].style.display = "none";
-        }
-
-        posicion = 2
-        posicionI = 11
-        posicionS = 0
-
-        for (i = 0; i < inputs.length; i++) {
-        }
-
-        do {
-            if (posicion === 2) {
-                inputs[posicion].value = parrafos[0].textContent
-            }
-            if (posicion > 2 && posicion < 7) {
-                inputs[posicion].value = inputs[posicionI].value
-                posicionI++
-            }
-            if (posicion > 6 && posicion < 9) {
-                console.log("Actual -> 2")
-                inputs[posicion].value = selects[posicionS].value
-                posicionS++
-            }
-            if (posicion === 9) {
-                inputs[posicion].value = parrafos[9].textContent
-            }
-            posicion++
-        } while (posicion < inputs.length - 4)
 
         /*var ID = document.getElementById("codigoUP").textContent = parrafos[0].textContent
         var nombreP = document.getElementById("nombreP").textContent = inputs[11].value

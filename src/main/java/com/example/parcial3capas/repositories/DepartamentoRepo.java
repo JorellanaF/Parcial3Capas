@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DepartamentoRepo extends JpaRepository<Departamento, Integer> {
     Departamento findByDepartamento(String departamento);
+    Departamento findByCodigoDepartamento(Integer ID);
 }

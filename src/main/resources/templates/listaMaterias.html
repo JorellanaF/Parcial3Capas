@@ -155,30 +155,37 @@
 
         let i = 0;
         let j = 7;
-        do {
-            parrafos[i].style.display = "block"
-            i++
-        } while (i < parrafos.length);
-        parrafos[1].textContent = inputs[5].value
-        //-----------------------------Parrafos FIN
 
-        for (t = 0; t < inputs.length; t++) {
-            if (inputs[t].id === "confirmar") {
-                inputs[t].style.display = "block";
+        for (m=5; m < inputs.length; m++){
+            if (inputs[m].value === ""){
+
             } else {
-                inputs[t].style.display = "none";
+                do {
+                    parrafos[i].style.display = "block"
+                    i++
+                } while (i < parrafos.length);
+                parrafos[1].textContent = inputs[5].value
+                //-----------------------------Parrafos FIN
+
+                for (t = 0; t < inputs.length; t++) {
+                    if (inputs[t].id === "confirmar") {
+                        inputs[t].style.display = "block";
+                    } else {
+                        inputs[t].style.display = "none";
+                    }
+
+                }
+
+                posicion = 2
+                posicionI = 0
+
+                do {
+                    inputs[posicion].value = parrafos[posicionI].textContent
+                    posicionI++
+                    posicion++
+                } while (posicion < inputs.length - 2)
             }
-
         }
-
-        posicion = 2
-        posicionI = 0
-
-        do {
-            inputs[posicion].value = parrafos[posicionI].textContent
-            posicionI++
-            posicion++
-        } while (posicion < inputs.length - 2)
     }
 
 </script>

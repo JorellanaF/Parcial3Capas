@@ -191,52 +191,59 @@
 
         let i = 0;
         let j = 7;
-        do {
-            do {
-                parrafos[i].style.display = "block"
-                if (i > 0) {
-                    if (i < 4) {
-                        parrafos[i].textContent = inputs[j].value
-                    } else {
-                        break
-                    }
-                }
-                j++
-            } while (j <= i)
-            i++
-        } while (i < parrafos.length);
-        //-----------------------------Parrafos FIN
 
-        for (t = 0; t < inputs.length; t++) {
-            if (inputs[t].id === "confirmar") {
-                inputs[t].style.display = "block";
+        for (m=8; inputs.length; m++){
+            if (inputs[m].value === ""){
+
             } else {
-                inputs[t].style.display = "none";
-            }
+                do {
+                    do {
+                        parrafos[i].style.display = "block"
+                        if (i > 0) {
+                            if (i < 4) {
+                                parrafos[i].textContent = inputs[j].value
+                            } else {
+                                break
+                            }
+                        }
+                        j++
+                    } while (j <= i)
+                    i++
+                } while (i < parrafos.length);
+                //-----------------------------Parrafos FIN
 
+                for (t = 0; t < inputs.length; t++) {
+                    if (inputs[t].id === "confirmar") {
+                        inputs[t].style.display = "block";
+                    } else {
+                        inputs[t].style.display = "none";
+                    }
+
+                }
+
+                /*for (t = 0; t < selects.length; t++) {
+                    selects[t].style.display = "none";
+                }*/
+
+
+                posicion = 2
+                posicionI = 8
+
+                do {
+                    if (posicion === 2) {
+                        inputs[posicion].value = parrafos[0].textContent
+                    }
+                    if (posicion > 2 && posicion < 6) {
+                        inputs[posicion].value = inputs[posicionI].value
+                        posicionI++
+                    }
+                    if (posicion === 6) {
+                        inputs[posicion].value = parrafos[4].textContent
+                    }
+                    posicion++
+                } while (posicion < inputs.length - 3)
+            }
         }
-
-        /*for (t = 0; t < selects.length; t++) {
-            selects[t].style.display = "none";
-        }*/
-
-
-        posicion = 2
-        posicionI = 8
-
-        do {
-            if (posicion === 2) {
-                inputs[posicion].value = parrafos[0].textContent
-            }
-            if (posicion > 2 && posicion < 6) {
-                inputs[posicion].value = inputs[posicionI].value
-                posicionI++
-            }
-            if (posicion === 6) {
-                inputs[posicion].value = parrafos[4].textContent
-            }
-            posicion++
-        } while (posicion < inputs.length - 3)
     }
 
 </script>
