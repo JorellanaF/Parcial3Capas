@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Materia</title>
+    <link rel="stylesheet" type="text/css" href="css/agregarME.css">
+    <script
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="row form">
+    <div class="col-8 divimg"></div>
+    <div class="col-4 p-4 align-self-center">
+        <div class="row col-12 align-items-center">
+            <form class="col-12" method="post" th:action="@{/validarEditME}" th:object="${materiaE}">
+                <h4 class="col-12 m-4 text-left" th:text="${titulo}"></h4>
+                <div class="form-group row">
+                    <label class="col-3">Materia</label>
+                    <select class="col-md-9" th:selected="*{materia}" th:field="*{materia}" required>
+                        <option th:each="materias, row: ${materias}" th:value="${materias.codigoMateria}"
+                                th:text="${materias.materia}"></option>
+                    </select>
+                    <span class="col-12 text-center errors" th:errors="*{materia}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Año</label>
+                    <input class="col-9" type="date" th:field="*{anio}" required>
+                    <span class="col-12 text-center errors" th:errors="*{anio}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Ciclo</label>
+                    <select class="col-md-9" th:field="*{ciclo}" required>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Nota</label>
+                    <input class="col-9" type="text" placeholder="0.0" th:name="nota" th:field="*{nota}" required>
+                    <span class="col-12 text-center errors" th:errors="*{nota}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <input th:name="estudiante" th:value="${estudiante}" style="display: none">
+                    <input th:name="codigoME" th:value="${codigoME}" style="display: none">
+                </div>
+                <div class="form-group row justify-content-center">
+                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Agregar">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrarse</title>
+    <link rel="stylesheet" type="text/css" href="css/agregarE.css">
+    <script
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="row form">
+    <div class="col-8 divimg"></div>
+    <div class="col-4 p-4 align-self-center">
+        <div class="row col-12 align-items-center">
+            <form class="col-12" method="post" th:action="@{/validarEs}" th:object="${estudiante}">
+                <h1 class="col-12 m-4 text-left">Agregar Expediente</h1>
+                <div class="form-group row">
+                    <label class="col-3">Nombre</label>
+                    <input class="col-9" type="text" placeholder="Nombre" th:field="*{nombre}">
+                    <span class="col-12 text-center errors" th:errors="*{nombre}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Apellido</label>
+                    <input class="col-9" type="text" placeholder="Apellido" th:field="*{apellido}">
+                    <span class="col-12 text-center errors" th:errors="*{apellido}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Carnet</label>
+                    <input class="col-9" type="text" placeholder="Carnet" th:field="*{carnet}">
+                    <span class="col-12 text-center errors" th:errors="*{carnet}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Fecha de nacimiento</label>
+                    <input class="col-9" id="fechaN" type="date" th:field="*{fechaNacimiento}">
+                    <span class="col-12 text-center errors" th:errors="*{fechaNacimiento}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 text-center">Departamento de Residencia</label>
+                    <select class="col-9" name="departamento" id="departamento" onchange="select()">
+                        <option class="col-" th:each="departamento, row: ${departamentos}" th:value="${departamento.codigoDepartamento}" th:text="${departamento.departamento}"></option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 text-center">Municipio de Residencia</label>
+                    <select class="col-9 w-100" name="municipio" id="municipio" onchange="select2()">
+                        <option class="col-12" th:each="municipio, row: ${municipios}" th:id="${municipio.departamento.codigoDepartamento}" th:value="${municipio.codigoMunicipio}" th:text="${municipio.municipio}"></option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3 text-center">Instituto de Procedencia</label>
+                    <select class="col-9 w-100" name="centroE" id="centroE" th:field="*{codigoCentro}">
+                        <option class="col-12" th:each="centro, row: ${centros}" th:id="${centro.municipio.codigoMunicipio}" th:value="${centro.codigoCentro}" th:text="${centro.nombre}"></option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Direccion</label>
+                    <input class="col-9" type="text" placeholder="Direccion" th:field="*{direccionResidencia}">
+                    <span class="col-12 text-center errors" th:errors="*{direccionResidencia}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Telefono</label>
+                    <input class="col-9" type="text" name="telefono" id="telefono" placeholder="1234-5678" th:field="*{telefono}">
+                    <span class="col-12 text-center errors" th:errors="*{telefono}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Celular</label>
+                    <input class="col-9" type="text" name="celular" id="celular" placeholder="1234-5678" th:field="*{celular}">
+                    <span class="col-12 text-center errors" th:errors="*{celular}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Nombre del Padre</label>
+                    <input class="col-9" type="text" placeholder="Escribe aqui..." th:field="*{nombrePadre}">
+                    <span class="col-12 text-center errors" th:errors="*{nombrePadre}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="col-3">Nombre de la Madre</label>
+                    <input class="col-9" type="text" placeholder="Escribe aqui..." th:field="*{nombreMadre}">
+                    <span class="col-12 text-center errors" th:errors="*{nombreMadre}" style="color: #FF0000"></span>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Agregar" th:action="@{/validarR}">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function select() {
+        var departamento = document.getElementById("departamento")
+        var municipios = document.getElementById("municipio")
+
+        var valorD = departamento.options[departamento.selectedIndex].value
+        var numMunicipios = municipios.length
+
+        for(i = 0; i < numMunicipios; i++){
+            municipios.options[i].hidden = false
+        }
+
+        for(i = 0; i < numMunicipios; i++){
+            if(municipios[i].id == valorD) {
+                municipios[i].value = municipios[i].value
+                municipios[i].text = municipios[i].text
+            }else {
+                municipios.options[i].hidden = true
+            }
+        }
+
+        municipios.options[0].selected = false
+    }
+
+    function select2() {
+        var municipios = document.getElementById("municipio")
+        var institutos = document.getElementById("centroE")
+
+        var valorD = municipios.options[municipios.selectedIndex].value
+        var numInstitutos = institutos.length
+
+        for(i = 0; i < numInstitutos; i++){
+            institutos.options[i].hidden = false
+        }
+
+        for(i = 0; i < numInstitutos; i++){
+            if(institutos[i].id == valorD) {
+                institutos[i].value = institutos[i].value
+                institutos[i].text = institutos[i].text
+            }else {
+                institutos.options[i].hidden = true
+            }
+        }
+
+        institutos.options[0].selected = false
+    }
+</script>

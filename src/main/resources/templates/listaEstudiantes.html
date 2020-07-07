@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Coordinador</title>
+    <link rel="stylesheet" type="text/css" href="css/dashCoord.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/7f66318f6f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="row Contenedor">
+    <div class="col-md-2 Menu pr-0">
+        <div class="col-md-12 logo row m-0">
+            <div class="col-md-12 m-1 row">
+                <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
+                <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/coordinador}">Dash Coord</a></h4>
+            </div>
+        </div>
+        <div class="col-md-12 Opciones row m-0">
+            <div class="col-md-12 mt-4 row justify-content-center">
+                <i class="fas fa-school col-md-2"></i>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoE}">Expediente de
+                    Estudiantes </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 Vistas pr-0">
+        <div class="col-md-12 row Barra mr-0">
+            <div class="col-md-2 p-0 m-0">
+                <form class="col-md-" th:action="@{/registroE}">
+                    <input class="w-auto btn btn-success" type="submit" value="Agregar Estudiante">
+                </form>
+            </div>
+            <div class="col-md-8 p-0 m-0">
+                <form class="col-md-12 p-0 m-0 row" th:action="@{buscarE}">
+                    <select class="col-md-4 p-0 m-0" th:name="criterio" required>
+                        <option value="0">Seleccione criterio [Nombres, Apellidos]</option>
+                        <option value="1">Nombres [Nombres]</option>
+                        <option value="2">Apellidos [Apellidos]</option>
+                    </select>
+                    <input class="col-md-6" type="text" th:name="buscado" required>
+                    <input class="btn btn-primary col-md-2 fa" type="submit" value="&#xf002; Buscar">
+                </form>
+            </div>
+            <div class="col-md-2 row justify-content-end p-0 m-0">
+                <form class="col- justify-content-end" th:action="@{/logout}">
+                    <input class="btn btn-danger" type="submit" value="Logout">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12 row Tablas">
+            <div class="col-md-12 row justify-content-md-center">
+                <div class="row justify-content-center">
+                    <h1 class="col-md-12 ">Listado de Expedientes</h1>
+                </div>
+            </div>
+            <div class="col-md-12 row m-0">
+                <table class="col-md-12 listado" id="listado">
+                    <thead class="cabecera">
+                    <th class="col- text-center">Accion</th>
+                    <th class="col-">CDU</th>
+                    <th class="col-">Nombre</th>
+                    <th class="col-">Apellido</th>
+                    <th class="col-">Materias Aprobadas</th>
+                    <th class="col-">Materias Reprobadas</th>
+                    <th class="col-">Promedio</th>
+                    </thead>
+                    <th:block th:each="estudiantes, row:${materiaxEstudiantes}">
+                        <tr>
+                            <th>
+                                <div class="row justify-content-md-center">
+                                    <form class="col-md-4 p-0 m-0" method="post" th:action="@{/editarEs}">
+                                        <input th:name="codigoE" th:value="${estudiantes.codigoE}" style="display: none">
+                                        <input class="btn fa btn-success" id="editarE" style="display: block"
+                                               type="submit" value="&#xf002;">
+                                    </form>
+                                    <form class="col-md-4 p-0 m-0" method="post" th:action="@{/listadoME}">
+                                        <input th:name="codigoME" th:value="${estudiantes.codigoE}" style="display: none">
+                                        <input class="btn fa btn-info" id="materiasC" style="display: block"
+                                               type="submit" value="&#xf044;">
+                                    </form>
+                                </div>
+                            </th>
+                            <th>
+                                <p id="codigoUP" th:text="${estudiantes.codigoE}"></p>
+                            </th>
+                            <th>
+                                <p id="nombreP" th:text="${estudiantes.nombre}"></p>
+                            </th>
+                            <th>
+                                <p id="apellidoP" th:text="${estudiantes.apellido}"></p>
+                            </th>
+                            <th>
+                                <p id="aprobadoP" th:text="${estudiantes.aprobadas}"></p>
+                            </th>
+                            <th>
+                                <p id="reprobadoP" th:text="${estudiantes.reprobadas}"></p>
+                            </th>
+                            <th>
+                                <p id="promedioP" th:text="${estudiantes.promedio}"></p>
+                            </th>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

@@ -13,13 +13,13 @@
         <div class="col-md-12 logo row m-0">
             <div class="col-md-12 m-1 row">
                 <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
-                <h4 class="col-md-10">Dash Coor</h4>
+                <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/coordinador}">Dash Coord</a></h4>
             </div>
         </div>
         <div class="col-md-12 Opciones row m-0">
             <div class="col-md-12 mt-4 row justify-content-center">
                 <i class="fas fa-school col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/exito}">Expediente de Alumnos </a>
+                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoE}">Expediente de Estudiantes </a>
             </div>
         </div>
     </div>
@@ -28,10 +28,9 @@
             <div class="col-md-10">
                 <form class="row">
                     <select class="col-md-4">
-                        <option value="0">Seleccione criterio</option>
+                        <option value="0">Seleccione criterio [Nombres, Apellidos]</option>
                         <option value="1">Nombres [Nombres]</option>
                         <option value="2">Apellidos [Apellidos]</option>
-                        <option value="3">Nombres y Apellidos [Nombres, Apellidos]</option>
                     </select>
                     <input class="col-md-7" type="text">
                     <input class="btn btn-primary col-md-1 fa" type="submit" value="&#xf002; Buscar">

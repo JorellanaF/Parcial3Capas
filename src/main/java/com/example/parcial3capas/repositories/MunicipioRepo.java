@@ -17,4 +17,6 @@ public interface MunicipioRepo extends JpaRepository<Municipio, Integer> {
     Municipio porID(Integer ID) throws DataAccessException;
 
     Municipio findByMunicipio(String municipio);
+
+    Municipio findByCodigoMunicipio(Integer ID);
 }

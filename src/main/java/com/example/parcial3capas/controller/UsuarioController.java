@@ -58,15 +58,14 @@ public class UsuarioController {
             departamentos = departamentoRepo.findAll();
             municipios = municipioRepo.municipios();
             roles = rolRepo.findAll();
+            mav.addObject("usuario", new Usuario());
+            mav.addObject("departamentos", departamentos);
+            mav.addObject("municipios", municipios);
+            mav.addObject("roles", roles);
+            mav.setViewName("registro");
         }catch(Exception e) {
             e.printStackTrace();
         }
-
-        mav.addObject("usuario", new Usuario());
-        mav.addObject("departamentos", departamentos);
-        mav.addObject("municipios", municipios);
-        mav.addObject("roles", roles);
-        mav.setViewName("registro");
 
         return mav;
     }//Pagina de REGISTRO ADMIN

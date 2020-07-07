@@ -38,10 +38,6 @@ public class UsuarioServices implements UserDetailsService {
 
         UserDetails userDetails = new User(us.getUsuario(), us.getContraseña(), roles);
 
-        //System.out.println("UsuarioServices -> " + us.getUsuario());
-
-        //System.out.println(rol.getRol());
-
         return userDetails;
     }
 
