@@ -1,5 +1,5 @@
 .cabecera{
-    background: rgba(17, 17, 17, 0.86);
+    background: rgb(30, 30, 45);
 }
 
 .cabecera th {
@@ -7,7 +7,7 @@
 }
 
 tr:nth-child(even){
-    background: #bdbdbd;
+    background: rgb(30, 30, 45);
 }
 
 .cabecera th:first-child{
@@ -49,25 +49,40 @@ html, body {
 }
 
 .Menu {
+    background-image: url("/images/panel.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     height: inherit;
 }
 
+.opa{
+    height: inherit;
+    background-color: rgba(30, 30, 45, 0.8);
+}
+
 .Vistas {
-    background: #eaeaea;
+    background: rgb(30, 30, 45);
     height: inherit;
 }
 
 .logo {
-    background: #f6f6f6;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
     height: auto;
 }
 
 .Barra{
-    background: #e5e5e5;
+    background: rgb(39, 41, 59);
     padding: 0.2em;
 }
 
-.Tablas{
-    background: #eaeaea;
+*{
+    color: white;
+}
+
+.listas{
+    border-radius: 10px;
+    background: rgb(39, 41, 59);
+    padding: 2em;
 }
 

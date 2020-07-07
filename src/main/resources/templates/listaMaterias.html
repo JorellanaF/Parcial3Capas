@@ -12,24 +12,26 @@
 <body>
 <div class="row Contenedor">
     <div class="col-md-2 Menu pr-0">
-        <div class="col-md-12 logo row m-0">
-            <div class="col-md-12 m-1 row">
-                <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
-                <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/admin}">Dash Admin</a></h4>
+        <div class="opa">
+            <div class="col-md-12 logo row m-0">
+                <div class="col-md-12 m-1 row">
+                    <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
+                    <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/admin}">Dash Admin</a></h4>
+                </div>
             </div>
-        </div>
-        <div class="col-md-12 Opciones row m-0">
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-school col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoC}">Centros Escolares</a>
-            </div>
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-book col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listaM}">Materias</a>
-            </div>
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-users col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
+            <div class="col-md-12 Opciones row m-0">
+                <div class="col-md-12 mt-4 row justify-content-center">
+                    <i class="fas fa-school col-md-2"></i>
+                    <a class="col-md-10 text-white text-decoration-none" th:href="@{/listadoC}">Centros Escolares</a>
+                </div>
+                <div class="col-md-12 mt-4 row justify-content-center">
+                    <i class="fas fa-book col-md-2"></i>
+                    <a class="col-md-10 text-white text-decoration-none" th:href="@{/listaM}">Materias</a>
+                </div>
+                <div class="col-md-12 mt-4 row justify-content-center">
+                    <i class="fas fa-users col-md-2"></i>
+                    <a class="col-md-10 text-white text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
+                </div>
             </div>
         </div>
     </div>
@@ -52,7 +54,7 @@
                     <h1 class="col-md-12 ">Listado de Materias</h1>
                 </div>
             </div>
-            <div class="col-md-12 row m-0">
+            <div class="col-md-12 listas row m-0">
                 <table class="col-md-12 listado" id="listado">
                     <thead class="cabecera">
                     <th class="col-">Accion</th>
@@ -81,7 +83,7 @@
                             </th>
                             <th>
                                 <p id="materiaP" th:text="${materias.materia}" style="display: block"></p>
-                                <input id="materia" type="text" placeholder="Materia" style="display: none">
+                                <input class="text-dark" id="materia" type="text" placeholder="Materia" style="display: none">
                             </th>
                         </tr>
                     </th:block>

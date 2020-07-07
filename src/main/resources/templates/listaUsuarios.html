@@ -12,24 +12,26 @@
 <body>
 <div class="row Contenedor">
     <div class="col-md-2 Menu pr-0">
-        <div class="col-md-12 logo row m-0">
-            <div class="col-md-12 m-1 row">
-                <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
-                <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/admin}">Dash Admin</a></h4>
+        <div class="opa">
+            <div class="col-md-12 logo row m-0">
+                <div class="col-md-12 m-1 row">
+                    <i class="fas fa-dice-d20 col-md-2" style="font-size: 2em;"></i>
+                    <h4 class="col-md-10"><a class="text-reset text-decoration-none" th:href="@{/admin}">Dash Admin</a></h4>
+                </div>
             </div>
-        </div>
-        <div class="col-md-12 Opciones row m-0">
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-school col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoC}">Centros Escolares</a>
-            </div>
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-book col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listaM}">Materias</a>
-            </div>
-            <div class="col-md-12 mt-4 row justify-content-center">
-                <i class="fas fa-users col-md-2"></i>
-                <a class="col-md-10 text-dark text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
+            <div class="col-md-12 Opciones row m-0">
+                <div class="col-md-12 mt-4 row justify-content-center">
+                    <i class="fas fa-school col-md-2"></i>
+                    <a class="col-md-10 text-white text-decoration-none" th:href="@{/listadoC}">Centros Escolares</a>
+                </div>
+                <div class="col-md-12 mt-4 row justify-content-center">
+                    <i class="fas fa-book col-md-2"></i>
+                    <a class="col-md-10 text-white text-decoration-none" th:href="@{/listaM}">Materias</a>
+                </div>
+                <div class="col-md-12 mt-4 row justify-content-center">
+                    <i class="fas fa-users col-md-2"></i>
+                    <a class="col-md-10 text-white text-decoration-none" th:href="@{/listadoU}">Usuarios</a>
+                </div>
             </div>
         </div>
     </div>
@@ -52,7 +54,7 @@
                     <h1 class="col-md-12 ">Listado de Usuarios</h1>
                 </div>
             </div>
-            <div class="col-md-12 row m-0">
+            <div class="col-md-12 listas row m-0">
                 <table class="col-md-12 listado" id="listado">
                     <thead class="cabecera">
                     <th class="col-">Accion</th>
@@ -93,15 +95,15 @@
                             </th>
                             <th>
                                 <p id="nombreP" th:text="${usuario.nombre}" style="display: block"></p>
-                                <input id="nombre" type="text" placeholder="Nombre" style="display: none" required>
+                                <input class="text-dark" id="nombre" type="text" placeholder="Nombre" style="display: none" required>
                             </th>
                             <th>
                                 <p id="apellidoP" th:text="${usuario.apellido}" style="display: block"></p>
-                                <input id="apellido" type="text" placeholder="Apellido" style="display: none" required>
+                                <input class="text-dark" id="apellido" type="text" placeholder="Apellido" style="display: none" required>
                             </th>
                             <th>
                                 <p id="fechaP" th:text="${usuario.fechaNacimiento}" style="display: block"></p>
-                                <input id="fecha" type="date" style="display: none" required>
+                                <input class="text-dark" id="fecha" type="date" style="display: none" required>
                             </th>
                             <th>
                                 <p id="edadP" th:text="${usuario.edad}" style="display: block"></p>
@@ -109,10 +111,10 @@
                             <th>
                                 <p id="direccionP" th:text="${usuario.direccionResidencia}"
                                    style="display: block"></p>
-                                <input id="direccion" type="text" placeholder="Direccion" style="display: none" required>
+                                <input class="text-dark" id="direccion" type="text" placeholder="Direccion" style="display: none" required>
                             </th>
                             <th>
-                                <select id="estadoP" style="display: none">
+                                <select class="text-dark" id="estadoP" style="display: none">
                                     <option>Activo</option>
                                     <option>Inactivo</option>
                                 </select>
@@ -122,7 +124,7 @@
                                 <p id="usuarioP" th:text="${usuario.usuario}" style="display: block"></p>
                             </th>
                             <th>
-                                <select id="rolP" style="display: none">
+                                <select class="text-dark" id="rolP" style="display: none">
                                     <option th:each="rol, row: ${roles}"
                                             th:value="${rol.codigoRol}"
                                             th:text="${rol.rol}"></option>

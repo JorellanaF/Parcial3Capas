@@ -14,21 +14,34 @@ html, body {
     height: inherit;
 }
 
+.opa{
+    height: inherit;
+    background-color: rgba(30, 30, 45, 0.8);
+}
+
 .Menu {
+    background-image: url("/images/panel.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     height: inherit;
 }
 
 .Vistas {
-    background: #eaeaea;
+    background: rgb(30, 30, 45);
     height: inherit;
 }
 
 .logo {
-    background: #f6f6f6;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
     height: auto;
 }
 
 .Barra{
-    background: #e5e5e5;
+    background: rgb(39, 41, 59);
     padding: 0.2em;
+}
+
+*{
+    color: white;
 }
