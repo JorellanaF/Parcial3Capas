@@ -65,8 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/validDash","/registroP","/validarRP").permitAll()
-                .antMatchers("/validDash/admin", "/validDash/admin/**","/registro").hasRole("Administrador")
-                .antMatchers("/validDash/coordinador", "/validDash/coordinador/**").hasRole("Coordinador")
+                .antMatchers("**/listadoU","/registro","/validarR","/listadoU","/editUsuario" ,"/listaM","/editM","/agregarM","/validarM","/listadoC","editCentroE","/agregarC","validarC").hasAuthority("Administrador")
+                .antMatchers("/coordinador" ,"/registroE","/validarEs","/editarEs","/listadoE","/buscarE","/listadoME","/validarME","/editME","/validarEditME").hasAuthority("Coordinador")
                 .antMatchers("/static/**", "/js/**", "/css/**", "/img/**", "/json/**","/css/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -81,5 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").permitAll();
+
+        http.sessionManagement().maximumSessions(1);
     }
 }

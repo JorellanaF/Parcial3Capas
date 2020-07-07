@@ -10,6 +10,7 @@ import com.example.parcial3capas.services.MateriaEService;
 import com.example.parcial3capas.services.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -70,10 +71,15 @@ public class EstudianteController {
         ModelAndView mav = new ModelAndView();
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
+        List<CentroEscolar> centros = null;
 
         if(result.hasErrors()){
+            departamentos = departamentoRepo.findAll();
+            municipios = municipioRepo.municipios();
+            centros = centroEscolarService.findAll();
             mav.addObject("departamentos", departamentos);
             mav.addObject("municipios", municipios);
+            mav.addObject("centros", centros);
             mav.setViewName("registroE");
         }else {
             estudianteService.insert(estudiante);

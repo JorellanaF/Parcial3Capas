@@ -86,3 +86,10 @@ html, body {
     padding: 2em;
 }
 
+#listado{
+    display: block;
+    max-height: 50em !important;
+    min-width: 100% !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

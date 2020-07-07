@@ -25,14 +25,17 @@ public class Estudiante {
     private Integer codigoEstudiante;
 
     @Size(message = "El campo sobrepasa la cantidad de 100 caracteres", max = 100)
+    @NotEmpty(message = "El campo no debe estar vacio")
     @Column(name = "s_nombre")
     private String nombre;
 
     @Size(message = "El campo sobrepasa la cantidad de 100 caracteres", max = 100)
+    @NotEmpty(message = "El campo no debe estar vacio")
     @Column(name = "s_apellido")
     private String apellido;
 
     @Size(message = "El campo sobrepasa la cantidad de 10 caracteres", max = 10)
+    @NotEmpty(message = "El campo no debe estar vacio")
     @Column(name = "s_carnet")
     private String carnet;
 
