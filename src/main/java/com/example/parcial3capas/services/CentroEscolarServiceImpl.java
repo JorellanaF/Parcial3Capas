@@ -44,4 +44,9 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
     public CentroEscolar findByID(Integer ID) throws DataAccessException {
         return centroEscolarRepo.findByCodigoC(ID);
     }
+
+    @Override
+    public List<CentroEscolar> findByIDM(Integer ID) throws DataAccessException {
+        return centroEscolarRepo.findByCodigoMunicipio(ID);
+    }
 }

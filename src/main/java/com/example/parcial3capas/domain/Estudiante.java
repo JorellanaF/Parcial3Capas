@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -34,12 +35,15 @@ public class Estudiante {
     @Column(name = "s_apellido")
     private String apellido;
 
-    @Size(message = "El campo sobrepasa la cantidad de 10 caracteres", max = 10)
+    @Size(message = "El campo debe tener 9 caracteres", min = 9)
+    @Size(message = "El campo sobrepasa la cantidad de 9 caracteres", max = 9)
     @NotEmpty(message = "El campo no debe estar vacio")
+    @Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "El campo debe ser Alfanumerico")
     @Column(name = "s_carnet")
     private String carnet;
 
     @Column(name = "f_nacimiento")
+    @NotEmpty(message = "El campo no debe estar vacio")
     private String fechaNacimiento;
 
     @Column(name = "s_edad")
@@ -52,10 +56,12 @@ public class Estudiante {
 
     @Size(message = "El campo sobrepasa la cantidad de 12 caracteres", max = 12)
     @Column(name = "s_telefono")
+    @NotEmpty(message = "El campo no debe estar vacio")
     private String telefono;
 
     @Size(message = "El campo sobrepasa la cantidad de 12 caracteres", max = 12)
     @Column(name = "s_celular")
+    @NotEmpty(message = "El campo no debe estar vacio")
     private String celular;
 
     @Size(message = "El campo sobrepasa la cantidad de 150 caracteres", max = 150)

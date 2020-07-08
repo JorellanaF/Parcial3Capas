@@ -11,5 +11,8 @@ public interface CentroEscolarRepo extends JpaRepository<CentroEscolar, Integer>
     @Query(nativeQuery=true, value="SELECT * FROM public.centro_escolar c WHERE c.c_centro_escolar = :ID")
     CentroEscolar findByCodigoC(Integer ID);
 
+    @Query(nativeQuery=true, value="SELECT * FROM public.centro_escolar WHERE c_municipio = :ID")
+    List<CentroEscolar> findByCodigoMunicipio(Integer ID);
+
     List<CentroEscolar> findAllByOrderByCodigoCentroAsc();
 }

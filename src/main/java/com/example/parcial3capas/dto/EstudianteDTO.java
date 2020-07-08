@@ -8,6 +8,15 @@ public class EstudianteDTO {
     private String aprobadas;
     private String reprobadas;
     private String promedio;
+    private String codigoC;
+
+    public String getCodigoC() {
+        return codigoC;
+    }
+
+    public void setCodigoC(String codigoC) {
+        this.codigoC = codigoC;
+    }
 
     public String getCodigoE() {
         return codigoE;

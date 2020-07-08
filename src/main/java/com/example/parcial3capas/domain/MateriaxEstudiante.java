@@ -1,9 +1,9 @@
 package com.example.parcial3capas.domain;
 
+import org.springframework.validation.annotation.Validated;
+
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(schema = "public", name = "materia_estudiante")

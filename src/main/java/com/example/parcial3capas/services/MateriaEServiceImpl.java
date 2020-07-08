@@ -26,7 +26,6 @@ public class MateriaEServiceImpl implements MateriaEService{
     @Transactional
     public void insert(MateriaxEstudiante materia) throws DataAccessException {
 
-
         materiaERepo.save(materia);
     }
 }

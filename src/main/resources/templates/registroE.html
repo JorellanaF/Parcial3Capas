@@ -14,74 +14,86 @@
     <div class="col-4 align-self-center">
         <div class="row col-12 align-items-center">
             <form class="col-12" method="post" th:action="@{/validarEs}" th:object="${estudiante}">
-                <h1 class="col-12 m-4 text-left">Agregar Expediente</h1>
-                <div class="form-group row">
+                <h1 class="col-12 text-left">Agregar Expediente</h1>
+                <div class="form-group row m-1">
                     <label class="col-3">Nombre</label>
                     <input class="col-9" type="text" placeholder="Nombre" th:field="*{nombre}">
                     <span class="col-12 text-center errors" th:errors="*{nombre}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Apellido</label>
                     <input class="col-9" type="text" placeholder="Apellido" th:field="*{apellido}">
                     <span class="col-12 text-center errors" th:errors="*{apellido}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Carnet</label>
                     <input class="col-9" type="text" placeholder="Carnet" th:field="*{carnet}">
                     <span class="col-12 text-center errors" th:errors="*{carnet}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Fecha de nacimiento</label>
                     <input class="col-9" id="fechaN" type="date" th:field="*{fechaNacimiento}">
                     <span class="col-12 text-center errors" th:errors="*{fechaNacimiento}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3 text-center">Departamento de Residencia</label>
-                    <select class="col-9" name="departamento" id="departamento" onchange="select()">
+                    <select class="col-9" name="departamento" id="departamento" onchange="select()" required>
                         <option class="col-" th:each="departamento, row: ${departamentos}" th:value="${departamento.codigoDepartamento}" th:text="${departamento.departamento}"></option>
                     </select>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3 text-center">Municipio de Residencia</label>
-                    <select class="col-9 w-100" name="municipio" id="municipio" onchange="select2()">
+                    <select class="col-9 w-100" name="municipio" id="municipio" onchange="select2()" required>
                         <option class="col-12" th:each="municipio, row: ${municipios}" th:id="${municipio.departamento.codigoDepartamento}" th:value="${municipio.codigoMunicipio}" th:text="${municipio.municipio}"></option>
                     </select>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3 text-center">Instituto de Procedencia</label>
-                    <select class="col-9 w-100" name="centroE" id="centroE" th:field="*{codigoCentro}">
+                    <select class="col-9 w-100" name="centroE" id="centroE" th:field="*{codigoCentro}" required>
                         <option class="col-12" th:each="centro, row: ${centros}" th:id="${centro.municipio.codigoMunicipio}" th:value="${centro.codigoCentro}" th:text="${centro.nombre}"></option>
                     </select>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Direccion</label>
                     <input class="col-9" type="text" placeholder="Direccion" th:field="*{direccionResidencia}">
                     <span class="col-12 text-center errors" th:errors="*{direccionResidencia}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Telefono</label>
                     <input class="col-9" type="text" name="telefono" id="telefono" placeholder="1234-5678" th:field="*{telefono}">
                     <span class="col-12 text-center errors" th:errors="*{telefono}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Celular</label>
                     <input class="col-9" type="text" name="celular" id="celular" placeholder="1234-5678" th:field="*{celular}">
                     <span class="col-12 text-center errors" th:errors="*{celular}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Nombre del Padre</label>
                     <input class="col-9" type="text" placeholder="Escribe aqui..." th:field="*{nombrePadre}">
                     <span class="col-12 text-center errors" th:errors="*{nombrePadre}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row m-1">
                     <label class="col-3">Nombre de la Madre</label>
                     <input class="col-9" type="text" placeholder="Escribe aqui..." th:field="*{nombreMadre}">
                     <span class="col-12 text-center errors" th:errors="*{nombreMadre}" style="color: #FF0000"></span>
                 </div>
-                <div class="form-group row mb-0 justify-content-center">
+                <div class="form-group row m-0 mb-0 justify-content-center">
                     <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Agregar" th:action="@{/validarR}">
                 </div>
             </form>
+            <div class="col-md-12 ustify-content-around">
+                <form class="col-md-" method="post" th:action="@{/listadoE}">
+                    <div class="form-group row m-0 mb-0 justify-content-around">
+                        <input class="col-md- btn btn-outline-light btnlog" type="submit" value="Regresar">
+                    </div>
+                </form>
+                <form class="col-md-" method="post" th:action="@{/registroE}">
+                    <div class="form-group row m-0 mb-0 justify-content-around">
+                        <input class="col-md- btn btn-outline-light btnlog" type="submit" value="Limpiar">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

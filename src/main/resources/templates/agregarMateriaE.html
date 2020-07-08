@@ -15,18 +15,17 @@
     <div class="col-4 p-4 align-self-center">
         <div class="row col-12 align-items-center">
             <form class="col-12" method="post" th:action="@{/validarME}" th:object="${materia}">
-                <h1 class="col-12 m-4 text-left">Agregar Materia</h1>
+                <h1 class="col-12 m-4 text-left" th:text="${titulo}"></h1>
                 <div class="form-group row">
                     <label class="col-3">Materia</label>
                     <select class="col-md-9" th:field="*{codigoMateria}" required>
-                        <option th:each="materias, row: ${materias}" th:value="${materias.codigoMateria}"
-                                th:text="${materias.materia}"></option>
+                        <option th:each="materias, row: ${materias}" th:value="${materias.codigoMateria}" th:text="${materias.materia}"></option>
                     </select>
                     <span class="col-12 text-center errors" th:errors="*{codigoMateria}" style="color: #FF0000"></span>
                 </div>
                 <div class="form-group row">
                     <label class="col-3">Año</label>
-                    <input class="col-9" type="date" th:field="*{anio}" required>
+                    <input class="col-9" type="date" th:field="*{anio}" min="2005-01-01" required>
                     <span class="col-12 text-center errors" th:errors="*{anio}" style="color: #FF0000"></span>
                 </div>
                 <div class="form-group row">

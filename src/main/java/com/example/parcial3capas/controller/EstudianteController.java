@@ -93,7 +93,7 @@ public class EstudianteController {
 
     //*******************************Editar de Estudiante*******************************
     @RequestMapping("/editarEs")
-    public ModelAndView editarEs(@RequestParam(value = "codigoE") String codigo){
+    public ModelAndView editarEs(@RequestParam(value = "codigoE") String codigo, @RequestParam(value = "codigoC") String codigoC){
         ModelAndView mav = new ModelAndView();
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
@@ -103,7 +103,8 @@ public class EstudianteController {
         try {
             departamentos = departamentoRepo.findAll();
             municipios = municipioRepo.municipios();
-            centros = centroEscolarService.findAll();
+            CentroEscolar centro = centroEscolarService.findByID(Integer.parseInt(codigoC));
+            centros = centroEscolarService.findByIDM(centro.getMunicipio().getCodigoMunicipio());
             mav.addObject("estudiante", estudiante);
             mav.addObject("departamentos", departamentos);
             mav.addObject("municipios", municipios);
@@ -161,7 +162,7 @@ public class EstudianteController {
 
 
     @RequestMapping("/listadoME")
-    public ModelAndView listadoME(@RequestParam(value = "codigoME") String codigo){
+    public ModelAndView listadoME(@RequestParam(value = "codigoME") String codigo, @RequestParam(value = "nombre") String nombre){
         ModelAndView mav = new ModelAndView();
 
         List<Materia> materias = null;
@@ -174,14 +175,38 @@ public class EstudianteController {
                 mav.addObject("materias", materias);
                 mav.addObject("materia", new MateriaxEstudiante());
                 mav.addObject("codigo", codigo);
+                mav.addObject("nombre",nombre);
                 mav.setViewName("agregarMateriaE");
             } else {
                 mav.addObject("materias", materias);
                 mav.addObject("materiasE", materiasE);
-                mav.addObject("titulo","Materias Cursadas de " + materiasE.get(0).getEstudiante());
+                mav.addObject("codigo", codigo);
+                mav.addObject("nombre", materiasE.get(0).getEstudiante());
+                mav.addObject("titulo","Materias Cursadas de " + nombre);
                 mav.setViewName("listaMateriasE");
             }
-        }catch(Exception e) {
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return  mav;
+    }
+
+    @RequestMapping("/agregarME")
+    public ModelAndView agregarME(@RequestParam(value = "codigoME") String codigo, @RequestParam(value = "nombre") String nombre){
+        ModelAndView mav = new ModelAndView();
+
+        List<Materia> materias = null;
+        System.out.println("HOOOLA SOY EL NOMBRE "+ nombre);
+
+        try{
+            materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
+            mav.addObject("materias", materias);
+            mav.addObject("materia", new MateriaxEstudiante());
+            mav.addObject("codigo", codigo);
+            mav.addObject("titulo", "Agregar Materia a " + nombre);
+            mav.setViewName("agregarMateriaE");
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
@@ -202,6 +227,7 @@ public class EstudianteController {
             try {
                 //materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
                 System.out.println("fechasaasdsda " + materia.getCodigoMateria());
+                materia.setMateria(materiaRepo.findByCodigoC(materia.getCodigoMateria()));
                 materia.setEstudiante(estudianteService.findByID(Integer.parseInt(codigo)));
                 materiaEService.insert(materia);
                 List<EstudianteDTO> materiaxEstudiantes = estudianteService.dtoEstudiante();
@@ -217,7 +243,8 @@ public class EstudianteController {
 
     @RequestMapping("/editME")
     public  ModelAndView editME(@RequestParam(value = "codigoME") String codigo, @RequestParam(value = "estudiante") String estudiante,
-                                @RequestParam(value = "materia") String materiaS, @ModelAttribute MateriaxEstudiante materia, BindingResult result){
+                                @RequestParam(value = "nombre") String nombre, @RequestParam(value = "materia") String materiaS,
+                                @ModelAttribute MateriaxEstudiante materia, BindingResult result){
         ModelAndView mav = new ModelAndView();
         List<Materia> materias = null;
 
@@ -228,7 +255,7 @@ public class EstudianteController {
             materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
             mav.addObject("materias", materias);
             MateriaDTO materiaE = estudianteService.dtoMateriaByCodigoMateria(Integer.parseInt(codigo));
-            mav.addObject("titulo", "Editanto " + materiaS + " a " + estudiante);
+            mav.addObject("titulo", "Editanto " + materiaS + " a " + nombre);
             mav.addObject("materiaE", materiaE);
             mav.addObject("estudiante", estudiante);
             mav.addObject("codigoME", codigo);

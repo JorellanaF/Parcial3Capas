@@ -75,6 +75,7 @@ public class EstudianteServiceImpl implements EstudianteService{
                     e.setAprobadas(obj[3].toString());
                     e.setReprobadas(obj[4].toString());
                     e.setPromedio(obj[5].toString());
+                    e.setCodigoC(obj[6].toString());
                     return e;
                 }
         ).collect(Collectors.toList());

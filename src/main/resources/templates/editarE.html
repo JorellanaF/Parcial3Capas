@@ -37,18 +37,6 @@
                     <span class="col-12 text-center errors" th:errors="*{fechaNacimiento}" style="color: #FF0000"></span>
                 </div>
                 <div class="form-group row">
-                    <label class="col-3 text-center">Departamento de Residencia</label>
-                    <select class="col-9" name="departamento" id="departamento" onchange="select()">
-                        <option class="col-" th:each="departamento, row: ${departamentos}" th:value="${departamento.codigoDepartamento}" th:text="${departamento.departamento}"></option>
-                    </select>
-                </div>
-                <div class="form-group row">
-                    <label class="col-3 text-center">Municipio de Residencia</label>
-                    <select class="col-9 w-100" name="municipio" id="municipio" onchange="select2()">
-                        <option class="col-12" th:each="municipio, row: ${municipios}" th:id="${municipio.departamento.codigoDepartamento}" th:value="${municipio.codigoMunicipio}" th:text="${municipio.municipio}"></option>
-                    </select>
-                </div>
-                <div class="form-group row">
                     <label class="col-3 text-center">Instituto de Procedencia</label>
                     <select class="col-9 w-100" name="centroE" id="centroE" th:field="*{codigoCentro}">
                         <option class="col-12" th:each="centro, row: ${centros}" th:id="${centro.municipio.codigoMunicipio}" th:value="${centro.codigoCentro}" th:text="${centro.nombre}"></option>
@@ -83,56 +71,13 @@
                     <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Agregar" th:action="@{/validarR}">
                 </div>
             </form>
-        </div>
+            <form class="col-12" method="post" th:action="@{/listadoE}">
+                <div class="form-group row justify-content-center">
+                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Regresar">
+                </div>
+            </form>
     </div>
 </div>
 </body>
 </html>
 
-<script type="text/javascript">
-    function select() {
-        var departamento = document.getElementById("departamento")
-        var municipios = document.getElementById("municipio")
-
-        var valorD = departamento.options[departamento.selectedIndex].value
-        var numMunicipios = municipios.length
-
-        for(i = 0; i < numMunicipios; i++){
-            municipios.options[i].hidden = false
-        }
-
-        for(i = 0; i < numMunicipios; i++){
-            if(municipios[i].id == valorD) {
-                municipios[i].value = municipios[i].value
-                municipios[i].text = municipios[i].text
-            }else {
-                municipios.options[i].hidden = true
-            }
-        }
-
-        municipios.options[0].selected = false
-    }
-
-    function select2() {
-        var municipios = document.getElementById("municipio")
-        var institutos = document.getElementById("centroE")
-
-        var valorD = municipios.options[municipios.selectedIndex].value
-        var numInstitutos = institutos.length
-
-        for(i = 0; i < numInstitutos; i++){
-            institutos.options[i].hidden = false
-        }
-
-        for(i = 0; i < numInstitutos; i++){
-            if(institutos[i].id == valorD) {
-                institutos[i].value = institutos[i].value
-                institutos[i].text = institutos[i].text
-            }else {
-                institutos.options[i].hidden = true
-            }
-        }
-
-        institutos.options[0].selected = false
-    }
-</script>

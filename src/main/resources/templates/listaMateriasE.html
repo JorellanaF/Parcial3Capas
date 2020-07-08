@@ -29,8 +29,10 @@
     <div class="col-md-10 Vistas pr-0">
         <div class="col-md-12 row Barra mr-0">
             <div class="col-md-2 p-0 m-0">
-                <form class="col-md-" th:action="@{/registroE}">
-                    <input class="w-auto btn btn-success" type="submit" value="Agregar Estudiante">
+                <form class="col-md-" th:action="@{/agregarME}">
+                    <input th:name="codigoME" th:value="${codigo}" style="display: none">
+                    <input th:name="nombre" th:value="${nombre}" style="display: none">
+                    <input class="w-auto btn btn-success" type="submit" value="Agregar Nueva materia">
                 </form>
             </div>
             <div class="col-md-8 p-0 m-0">
@@ -73,6 +75,7 @@
                                 <div class="row justify-content-md-center">
                                     <form class="col-md-4 p-0 m-0" method="post" th:action="@{/editME}">
                                         <input th:name="codigoME" th:value="${materiasE.codigoME}" style="display: none">
+                                        <input th:name="nombre" th:value="${materiasE.estudiante}" style="display: none">
                                         <input th:name="estudiante" th:value="${materiasE.codigoE}" style="display: none">
                                         <input th:name="materia" th:value="${materiasE.materia}" style="display: none">
                                         <input class="btn fa btn-info" id="materiasC" style="display: block"

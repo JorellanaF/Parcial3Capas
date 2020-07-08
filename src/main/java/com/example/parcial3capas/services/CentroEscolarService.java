@@ -10,4 +10,5 @@ public interface CentroEscolarService {
     List<CentroEscolar> findAllAsc() throws DataAccessException;
     void insert(CentroEscolar centroEscolar) throws DataAccessException;
     CentroEscolar findByID(Integer ID) throws DataAccessException;
+    List<CentroEscolar> findByIDM(Integer ID) throws DataAccessException;
 }
