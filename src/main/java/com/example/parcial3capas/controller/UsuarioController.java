@@ -164,7 +164,7 @@ public class UsuarioController {
 
 
         Usuario usuarioE = usuarioAct;
-        usuarioService.insert(usuarioE);
+        usuarioService.actualizar(usuarioE);
 
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;

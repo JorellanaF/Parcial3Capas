@@ -36,8 +36,6 @@ public class UsuarioServices implements UserDetailsService {
         Rol rol = rolRepo.getOne(us.getRol().getCodigoRol());
         roles.add(new SimpleGrantedAuthority(rol.getRol()));
 
-        System.out.println("Rol del Usuario " + roles.get(0));
-
         UserDetails userDetails = new User(us.getUsuario(), us.getContraseña(), roles);
 
         return userDetails;

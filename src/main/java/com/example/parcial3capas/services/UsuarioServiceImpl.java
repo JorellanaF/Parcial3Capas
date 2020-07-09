@@ -50,6 +50,24 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     @Transactional
+    public void actualizar(Usuario usuario) throws DataAccessException {
+        String f_nacimiento = usuario.getFechaNacimiento();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaNac = LocalDate.parse(f_nacimiento, fmt);
+        LocalDate hoy = LocalDate.now();
+        Period periodo = Period.between(fechaNac, hoy);
+        Integer edad = periodo.getYears();
+        usuario.setEdad(edad);
+
+        usuario.setRol(rolService.findById(usuario.getCodigoRol()));
+
+        usuario.setDepartamento(departamentoService.findById(usuario.getCodigoDepartamento()));
+
+        usuarioRepo.save(usuario);
+    }
+
+    @Override
+    @Transactional
     public Usuario findByUsuarioAndContraseña(String username, String password) throws DataAccessException {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

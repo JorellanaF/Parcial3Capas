@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UsuarioService {
     void insert(Usuario usuario) throws DataAccessException;
+    void actualizar(Usuario usuario) throws DataAccessException;
     Usuario findByUsuarioAndContraseña(String usuario, String contraseña) throws DataAccessException;
     Usuario findByUsername(String username) throws DataAccessException;
     String findRol(String usuario) throws DataAccessException;
