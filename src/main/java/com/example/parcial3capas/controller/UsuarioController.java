@@ -167,7 +167,24 @@ public class UsuarioController {
         Usuario usuarioE = usuarioAct;
         usuarioService.insert(usuarioE);
 
-        mav.setViewName("exito");
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
+        List<Rol> roles = null;
+        List<Usuario> usuarios = usuarioService.findAllAsc();
+
+        try {
+            departamentos = departamentoRepo.findAll();
+            municipios = municipioRepo.municipios();
+            roles = rolRepo.findAll();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        mav.addObject("usuarios", usuarios);
+        mav.addObject("departamentos", departamentos);
+        mav.addObject("municipios", municipios);
+        mav.addObject("roles", roles);
+        mav.setViewName("listaUsuarios");
 
         return mav;
     }

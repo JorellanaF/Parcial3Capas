@@ -95,15 +95,15 @@
                             </th>
                             <th>
                                 <p id="nombreP" th:text="${usuario.nombre}" style="display: block"></p>
-                                <input class="text-dark" id="nombre" type="text" placeholder="Nombre" style="display: none" required>
+                                <input class="text-dark" id="nombre" type="text" th:value="${usuario.nombre}" placeholder="Nombre" style="display: none" required>
                             </th>
                             <th>
                                 <p id="apellidoP" th:text="${usuario.apellido}" style="display: block"></p>
-                                <input class="text-dark" id="apellido" type="text" placeholder="Apellido" style="display: none" required>
+                                <input class="text-dark" id="apellido" th:value="${usuario.apellido}" type="text" placeholder="Apellido" style="display: none" required>
                             </th>
                             <th>
                                 <p id="fechaP" th:text="${usuario.fechaNacimiento}" style="display: block"></p>
-                                <input class="text-dark" id="fecha" type="date" style="display: none" required>
+                                <input class="text-dark" id="fecha" type="date" th:value="${usuario.fechaNacimiento}" style="display: none" required>
                             </th>
                             <th>
                                 <p id="edadP" th:text="${usuario.edad}" style="display: block"></p>
@@ -111,7 +111,7 @@
                             <th>
                                 <p id="direccionP" th:text="${usuario.direccionResidencia}"
                                    style="display: block"></p>
-                                <input class="text-dark" id="direccion" type="text" placeholder="Direccion" style="display: none" required>
+                                <input class="text-dark" id="direccion" type="text" th:value="${usuario.direccionResidencia}" placeholder="Direccion" style="display: none" required>
                             </th>
                             <th>
                                 <select class="text-dark" id="estadoP" style="display: none">
@@ -201,7 +201,7 @@
                 }
             }
             editando = true;
-        } else {alert ('Solo se puede editar uns fila. Recargue la página para poder editar otra');
+        } else {alert ('Solo se puede editar una fila. Recargue la página para poder editar otra');
 
         }
     }

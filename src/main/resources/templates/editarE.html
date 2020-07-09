@@ -13,11 +13,11 @@
     <div class="col-8 divimg"></div>
     <div class="col-4 p-4 align-self-center">
         <div class="row col-12 align-items-center">
-            <form class="col-12" method="post" th:action="@{/validarEs}" th:object="${estudiante}">
+            <form class="col-12" method="post" th:action="@{/validarEEs}" th:object="${estudiante}">
                 <h1 class="col-12 m-4 text-left">Editar Expediente</h1>
                 <div class="form-group row">
                     <label class="col-3">Nombre</label>
-                    <input th:field="*{codigoEstudiante}" th:value="${codigo}" hidden>
+                    <input th:field="*{codigoEstudiante}" th:value="${codigo}" style="display: none;">
                     <input class="col-9" type="text" placeholder="Nombre" th:field="*{nombre}">
                     <span class="col-12 text-center errors" th:errors="*{nombre}" style="color: #FF0000"></span>
                 </div>
@@ -68,7 +68,7 @@
                     <span class="col-12 text-center errors" th:errors="*{nombreMadre}" style="color: #FF0000"></span>
                 </div>
                 <div class="form-group row justify-content-center">
-                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Agregar" th:action="@{/validarR}">
+                    <input class="col-4 btn btn-outline-light btnlog" type="submit" value="Guardar" th:action="@{/validarR}">
                 </div>
             </form>
             <form class="col-12" method="post" th:action="@{/listadoE}">

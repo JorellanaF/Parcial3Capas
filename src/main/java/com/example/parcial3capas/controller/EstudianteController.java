@@ -73,6 +73,8 @@ public class EstudianteController {
         List<Municipio> municipios = null;
         List<CentroEscolar> centros = null;
 
+        System.out.println("->>>>>>>>>>>>>>>>>>>>>>>>>>>>"+estudiante.getCodigoEstudiante());
+
         if(result.hasErrors()){
             departamentos = departamentoRepo.findAll();
             municipios = municipioRepo.municipios();
@@ -119,6 +121,33 @@ public class EstudianteController {
         }catch(Exception e) {
             e.printStackTrace();
         }
+        return mav;
+    }
+
+    @RequestMapping("/validarEEs")
+    public ModelAndView validarEEs(@Valid @ModelAttribute Estudiante estudiante, BindingResult result){
+        ModelAndView mav = new ModelAndView();
+        List<Departamento> departamentos = null;
+        List<Municipio> municipios = null;
+        List<CentroEscolar> centros = null;
+
+        System.out.println("->>>>>>>>>>>>>>>>>>>>>>>>>>>>"+estudiante.getCodigoEstudiante());
+
+        if(result.hasErrors()){
+            departamentos = departamentoRepo.findAll();
+            municipios = municipioRepo.municipios();
+            centros = centroEscolarService.findAll();
+            mav.addObject("departamentos", departamentos);
+            mav.addObject("municipios", municipios);
+            mav.addObject("centros", centros);
+            mav.setViewName("editarE");
+        }else {
+            estudianteService.insert(estudiante);
+            List<EstudianteDTO> materiaxEstudiantes = estudianteService.dtoEstudiante();
+            mav.addObject("materiaxEstudiantes", materiaxEstudiantes);
+            mav.setViewName("listaEstudiantes");
+        }
+
         return mav;
     }
 
@@ -176,6 +205,7 @@ public class EstudianteController {
                 mav.addObject("materia", new MateriaxEstudiante());
                 mav.addObject("codigo", codigo);
                 mav.addObject("nombre",nombre);
+                mav.addObject("titulo","Agregar Materia a " + nombre);
                 mav.setViewName("agregarMateriaE");
             } else {
                 mav.addObject("materias", materias);
@@ -226,7 +256,7 @@ public class EstudianteController {
         } else {
             try {
                 //materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
-                System.out.println("fechasaasdsda " + materia.getCodigoMateria());
+                System.out.println("Codigo de Materia " + materia.getCodigoMateria());
                 materia.setMateria(materiaRepo.findByCodigoC(materia.getCodigoMateria()));
                 materia.setEstudiante(estudianteService.findByID(Integer.parseInt(codigo)));
                 materiaEService.insert(materia);

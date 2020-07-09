@@ -92,15 +92,15 @@
                             </th>
                             <th>
                                 <p id="nombreCP" th:text="${centrosEscolares.nombre}" style="display: block"></p>
-                                <input class="text-dark" id="nombre" type="text" placeholder="Nombre" style="display: none">
+                                <input class="text-dark" id="nombre" type="text" th:value="${centrosEscolares.nombre}" placeholder="Nombre" style="display: none">
                             </th>
                             <th>
                                 <p id="direccionCP" th:text="${centrosEscolares.direccion}" style="display: block"></p>
-                                <input class="text-dark" id="direccion" type="text" placeholder="Direccion" style="display: none">
+                                <input class="text-dark" id="direccion" type="text" th:value="${centrosEscolares.direccion}" placeholder="Direccion" style="display: none">
                             </th>
                             <th>
                                 <p id="telefonoCP" th:text="${centrosEscolares.telefono}" style="display: block"></p>
-                                <input class="text-dark" id="telefono" type="text" style="display: none" placeholder="1234-5678">
+                                <input class="text-dark" id="telefono" type="text" th:value="${centrosEscolares.telefono}" style="display: none" placeholder="1234-5678">
                             </th>
                             <th>
                                 <p id="municipio" th:text="${centrosEscolares.municipio.municipio}"

@@ -83,7 +83,7 @@
                             </th>
                             <th>
                                 <p id="materiaP" th:text="${materias.materia}" style="display: block"></p>
-                                <input class="text-dark" id="materia" type="text" placeholder="Materia" style="display: none">
+                                <input class="text-dark" id="materia" th:value="${materias.materia}" type="text" placeholder="Materia" style="display: none">
                             </th>
                         </tr>
                     </th:block>
