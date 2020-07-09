@@ -35,8 +35,6 @@ public class MateriaxEstudiante {
     private String ciclo;
 
     @Column(name = "s_nota")
-    @DecimalMin(value = "0.0", message = "El valor minimo es 0.0")
-    @DecimalMax(value = "10.0", message = "El valor maximo es 10.0")
     private String nota;
 
     public MateriaxEstudiante() {

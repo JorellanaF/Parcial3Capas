@@ -81,7 +81,6 @@ public class UsuarioController {
         List<Rol> roles = null;
         String username = usuario.getUsuario();
         Usuario usuarioE = usuarioService.findByUsername(username);
-        System.out.println(usuarioE);
 
         try {
             departamentos = departamentoRepo.findAll();

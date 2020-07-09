@@ -79,16 +79,19 @@ public class UsuarioServiceImpl implements UsuarioService{
     }
 
     @Override
+    @Transactional
     public List<Usuario> findAll() throws DataAccessException {
         return usuarioRepo.findAll();
     }
 
     @Override
+    @Transactional
     public List<Usuario> findAllAsc() throws DataAccessException {
         return usuarioRepo.findAllByOrderByCodigoUsuarioAsc();
     }
 
     @Override
+    @Transactional
     public Usuario findByID(Integer ID) throws DataAccessException {
         return usuarioRepo.findByCodigoUsuario(ID);
     }

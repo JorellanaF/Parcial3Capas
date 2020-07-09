@@ -60,11 +60,13 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public List<Estudiante> findAllAsc() throws DataAccessException {
         return null;
     }
 
     @Override
+    @Transactional
     public List<EstudianteDTO> dtoEstudiante() throws DataAccessException{
         List<EstudianteDTO> estudiantes = materiaERepo.materiasAprobadasyReprobadas().stream().map(
                 obj -> {
@@ -83,6 +85,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public List<EstudianteDTO> dtoEstudianteByNombre(String nombre) throws DataAccessException {
         List<EstudianteDTO> estudiantes = materiaERepo.materiasNombre(nombre).stream().map(
                 obj -> {
@@ -100,6 +103,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public List<EstudianteDTO> dtoEstudianteByApellido(String apellido) throws DataAccessException {
         List<EstudianteDTO> estudiantes = materiaERepo.materiasApellido(apellido).stream().map(
                 obj -> {
@@ -117,6 +121,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public List<MateriaDTO> dtoMateriaByEstudiante(Integer ID) throws DataAccessException {
         List<MateriaDTO> materias = materiaERepo.materiasE(ID).stream().map(
                 obj -> {
@@ -136,6 +141,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public MateriaDTO dtoMateriaByCodigoMateria(Integer ID) throws DataAccessException {
         List<MateriaDTO> materias = materiaERepo.materiaByID(ID).stream().map(
                 obj -> {
@@ -164,6 +170,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     }
 
     @Override
+    @Transactional
     public Estudiante findByID(Integer ID) throws DataAccessException {
         return estudianteRepo.findByCodigoEstudiante(ID);
     }

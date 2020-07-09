@@ -28,6 +28,7 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
     }
 
     @Override
+    @Transactional
     public List<CentroEscolar> findAllAsc() throws DataAccessException {
         return centroEscolarRepo.findAllByOrderByCodigoCentroAsc();
     }
@@ -41,11 +42,13 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
     }
 
     @Override
+    @Transactional
     public CentroEscolar findByID(Integer ID) throws DataAccessException {
         return centroEscolarRepo.findByCodigoC(ID);
     }
 
     @Override
+    @Transactional
     public List<CentroEscolar> findByIDM(Integer ID) throws DataAccessException {
         return centroEscolarRepo.findByCodigoMunicipio(ID);
     }

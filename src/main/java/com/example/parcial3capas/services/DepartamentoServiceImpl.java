@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class DepartamentoServiceImpl implements DepartamentoService{
 
@@ -13,6 +15,7 @@ public class DepartamentoServiceImpl implements DepartamentoService{
     DepartamentoRepo departamentoRepo;
 
     @Override
+    @Transactional
     public Departamento findById(Integer id) throws DataAccessException {
         Departamento departamento = departamentoRepo.getOne(id);
         return departamento;

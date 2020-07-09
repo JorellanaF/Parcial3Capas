@@ -73,8 +73,6 @@ public class EstudianteController {
         List<Municipio> municipios = null;
         List<CentroEscolar> centros = null;
 
-        System.out.println("->>>>>>>>>>>>>>>>>>>>>>>>>>>>"+estudiante.getCodigoEstudiante());
-
         if(result.hasErrors()){
             departamentos = departamentoRepo.findAll();
             municipios = municipioRepo.municipios();
@@ -130,8 +128,6 @@ public class EstudianteController {
         List<Departamento> departamentos = null;
         List<Municipio> municipios = null;
         List<CentroEscolar> centros = null;
-
-        System.out.println("->>>>>>>>>>>>>>>>>>>>>>>>>>>>"+estudiante.getCodigoEstudiante());
 
         if(result.hasErrors()){
             departamentos = departamentoRepo.findAll();
@@ -227,7 +223,6 @@ public class EstudianteController {
         ModelAndView mav = new ModelAndView();
 
         List<Materia> materias = null;
-        System.out.println("HOOOLA SOY EL NOMBRE "+ nombre);
 
         try{
             materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
@@ -256,7 +251,6 @@ public class EstudianteController {
         } else {
             try {
                 //materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
-                System.out.println("Codigo de Materia " + materia.getCodigoMateria());
                 materia.setMateria(materiaRepo.findByCodigoC(materia.getCodigoMateria()));
                 materia.setEstudiante(estudianteService.findByID(Integer.parseInt(codigo)));
                 materiaEService.insert(materia);
@@ -277,9 +271,6 @@ public class EstudianteController {
                                 @ModelAttribute MateriaxEstudiante materia, BindingResult result){
         ModelAndView mav = new ModelAndView();
         List<Materia> materias = null;
-
-        System.out.println("aaaaaaaaaaaaa"+materiaS);
-        System.out.println("eeeeeeeeeeeee"+estudiante);
 
         try {
             materias = materiaRepo.findAllByOrderByCodigoMateriaAsc();
